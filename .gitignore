@@ -7,3 +7,10 @@
 *.cmx
 *.cmxs
 *.cmxa
+*.ml~
+*.ml#
+*.mli~
+*.mli#
+*.native
+_build/
+.DS_Store
