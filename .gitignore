@@ -1,10 +1,8 @@
 *.annot
-*.cmo
 *.cma
 *.cmi
 *.a
 *.o
-*.cmx
 *.cmxs
 *.cmxa
 *.ml~
@@ -12,5 +10,4 @@
 *.mli~
 *.mli#
 *.native
-_build/
 .DS_Store
