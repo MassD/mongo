@@ -1,1 +1,1 @@
-src/mongoMessage.ml: Bson Buffer Char Int32 Int64 String
+src/mongoMessage.ml: Bson Buffer Int32 MongoUtils

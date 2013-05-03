@@ -1,3 +1,5 @@
+open MongoMessage;;
+
 
 let wrap_unix f arg = 
   try (f arg) with
@@ -20,3 +22,10 @@ let connect_local mongo_port =
 
 let close mongo = Unix.close mongo;;
   
+let get_dbs m =
+  let in_ch = Unix.in_channel_of_descr m in
+  let out_ch = Unix.out_channel_of_descr m in
+  output out_ch (dbs_cmd) 0 (String.length dbs_cmd);
+  print_endline "sent dbs_cmd and waiting for answer";
+  input_line in_ch;;
+  (*Bson.decode (input_line in_ch);;*)

@@ -1,1 +1,1 @@
-src/mongo.ml: Printf Unix
+src/mongo.ml: MongoMessage Printf String Unix
