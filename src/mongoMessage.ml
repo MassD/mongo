@@ -23,25 +23,27 @@ let op_code = function
 
 let create_header request_id op body_buf = 
   let buf = Buffer.create 8 in
-  encode_int32 buf (Int32.of_int((Buffer.length body_buf)+4));
+  encode_int32 buf (Int32.of_int((Buffer.length body_buf)+4*4));
   encode_int32 buf request_id;
   encode_int32 buf 0l;
   encode_int32 buf op;
+  (*print_buffer (Buffer.contents buf);*)
   buf;;
 
-let create_query request_id db_name collection_name option skip return query_doc selector_doc =
+let create_query request_id db_name collection_name flags skip return query_doc selector_doc =
   let buf = Buffer.create 16 and body_buf = Buffer.create 32 in
-  encode_int32 body_buf option;
+  encode_int32 body_buf flags;
   encode_cstring body_buf (db_name^"."^collection_name);
   encode_int32 body_buf skip;
   encode_int32 body_buf return;
   Buffer.add_string body_buf (encode query_doc);
+  (*print_buffer (Buffer.contents body_buf);*)
   if not (is_empty selector_doc) then Buffer.add_string body_buf (encode selector_doc);
   Buffer.add_buffer buf (create_header request_id (op_code OP_QUERY) body_buf);
   Buffer.add_buffer buf body_buf;
   Buffer.contents buf;;
 
-let dbs_cmd = create_query 0l "admin" "$cmd" 0l 0l 0l (add_element "listDatabases" (create_int32 (-1l)) (make ())) (make());;
+let dbs_cmd = create_query 5l "admin" "$cmd" 0l 0l (-1l) (add_element "listDatabases" (create_int32 (1l)) (make ())) (make());;
 
 
   

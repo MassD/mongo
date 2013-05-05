@@ -1,3 +1,7 @@
+let print_buffer s = 
+  String.iter (fun c -> let i = Char.code c in if i < 10 then Printf.printf "\\x0%X" i else Printf.printf "\\x%X" i) s;
+  print_endline "";;
+
 let encode_int32 buf v = 
   for i = 0 to 3 do
     let b = Int32.logand 255l (Int32.shift_right v (i*8)) in

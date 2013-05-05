@@ -1,1 +1,1 @@
-test/test_mongo.ml: Bson Char Mongo MongoMessage Printf String
+test/test_mongo.ml: Bson Mongo MongoUtils

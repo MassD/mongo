@@ -1,16 +1,21 @@
 open Bson;;
+open MongoUtils;;
 
-let print_buffer s = 
-  String.iter (fun c -> let i = Char.code c in if i < 10 then Printf.printf "\\x0%X" i else Printf.printf "\\x%X" i) s;
-  print_endline "";;
 
 let m = Mongo.connect_local 27017;;
 
-let _ = print_buffer (MongoMessage.dbs_cmd);;
+(*let _ = print_buffer (MongoMessage.dbs_cmd);;*)
 
-let dbs_doc = Mongo.get_dbs m;;
+let dbs_docs = Mongo.get_dbs m;;
 
-(*let _ = print_endline (to_simple_json dbs_doc);;*)
+let _ = 
+  match dbs_docs with
+    | [] -> print_endline "finished get dbs_docs"
+    | hd::tl -> print_endline (to_simple_json hd);;
+
+
+
+
 
 
 let _ = Mongo.close m;;
