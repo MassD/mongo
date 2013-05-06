@@ -51,3 +51,5 @@ let decode_cstring str cur =
   let x00 = next_x00 str cur in
   if x00 = -1 then raise Bson.Malformed_bson
   else (String.sub str cur (x00-cur), x00+1);;
+
+let cur_timestamp () = Int32.of_float (Unix.time());;

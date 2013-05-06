@@ -1,1 +1,1 @@
-test/test_mongo.ml: Bson Mongo MongoUtils
+test/test_mongo.ml: Bson Mongo MongoReply MongoUtils

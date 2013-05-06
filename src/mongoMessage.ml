@@ -1,5 +1,6 @@
 open MongoUtils;;
-open Bson;;
+
+exception Unknown_op_code;;
 
 type operation = 
   | OP_REPLY
@@ -11,7 +12,15 @@ type operation =
   | OP_DELETE
   | OP_KILL_CURSORS;;
 
-let op_code = function
+type header = 
+    {
+      message_len: int32; 
+      request_id: int32;
+      response_to: int32;
+      op: operation
+    };;
+
+let op_to_code = function
   | OP_REPLY -> 1l
   | OP_UPDATE -> 2001l
   | OP_INSERT -> 2002l
@@ -21,32 +30,46 @@ let op_code = function
   | OP_DELETE -> 2006l
   | OP_KILL_CURSORS -> 2007l;;
 
-let create_header request_id op body_buf = 
-  let buf = Buffer.create 8 in
-  encode_int32 buf (Int32.of_int((Buffer.length body_buf)+4*4));
-  encode_int32 buf request_id;
-  encode_int32 buf 0l;
-  encode_int32 buf op;
-  (*print_buffer (Buffer.contents buf);*)
-  buf;;
+let op_of_code = function
+  | 1l -> OP_REPLY
+  | 2001l -> OP_UPDATE
+  | 2002l -> OP_INSERT
+  | 2003l -> RESERVED
+  | 2004l -> OP_QUERY
+  | 2005l -> OP_GET_MORE
+  | 2006l -> OP_DELETE
+  | 2007l -> OP_KILL_CURSORS
+  | _ -> raise Unknown_op_code;;
 
-let create_query request_id db_name collection_name flags skip return query_doc selector_doc =
-  let buf = Buffer.create 16 and body_buf = Buffer.create 32 in
-  encode_int32 body_buf flags;
-  encode_cstring body_buf (db_name^"."^collection_name);
-  encode_int32 body_buf skip;
-  encode_int32 body_buf return;
-  Buffer.add_string body_buf (encode query_doc);
-  (*print_buffer (Buffer.contents body_buf);*)
-  if not (is_empty selector_doc) then Buffer.add_string body_buf (encode selector_doc);
-  Buffer.add_buffer buf (create_header request_id (op_code OP_QUERY) body_buf);
-  Buffer.add_buffer buf body_buf;
+let create_header body_len request_id op =
+  {
+    message_len = Int32.of_int(body_len+4*4);
+    request_id = request_id;
+    response_to = 0l;
+    op = op
+  };;
+
+let encode_header h =
+  let buf = Buffer.create 8 in
+  encode_int32 buf h.message_len;
+  encode_int32 buf h.request_id;
+  encode_int32 buf h.response_to;
+  encode_int32 buf (op_to_code (h.op));
   Buffer.contents buf;;
 
-let dbs_cmd = create_query 5l "admin" "$cmd" 0l 0l (-1l) (add_element "listDatabases" (create_int32 (1l)) (make ())) (make());;
+let decode_header str =
+  let (message_len, next) = decode_int32 str 0 in
+  let (request_id, next) = decode_int32 str next in
+  let (response_to, next) = decode_int32 str next in
+  let (op_code, next) = decode_int32 str next in
+  {
+    message_len = message_len;
+    request_id = request_id;
+    response_to = response_to;
+    op = op_of_code op_code
+  };;
 
 
-  
 
 
 
