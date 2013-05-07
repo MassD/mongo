@@ -37,6 +37,6 @@ let empty_doc = Bson.make();;
 let e_1 = Bson.create_int32 (1l);;
 let key_doc = Bson.add_element "key" e_1 empty_doc;;
 
-let _ = Mongo.insert m "test1" "keys" [key_doc];; 
+let _ = Mongo.insert m "test123" "keys" [key_doc];; 
 
 (*let _ = Mongo.close m;;*)

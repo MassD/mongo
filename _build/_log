@@ -1,48 +1,48 @@
 ### Starting build.
 # Target: test/test_mongo.ml.depends, tags: { extension:ml, file:test/test_mongo.ml, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules test/test_mongo.ml > test/test_mongo.ml.depends # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules test/test_mongo.ml > test/test_mongo.ml.depends
 # Target: src/mongo.ml.depends, tags: { extension:ml, file:src/mongo.ml, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongo.ml > src/mongo.ml.depends # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongo.ml > src/mongo.ml.depends # cached
 # Target: src/mongoCmd.ml.depends, tags: { extension:ml, file:src/mongoCmd.ml, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoCmd.ml > src/mongoCmd.ml.depends # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoCmd.ml > src/mongoCmd.ml.depends # cached
 # Target: src/mongoRequest.ml.depends, tags: { extension:ml, file:src/mongoRequest.ml, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoRequest.ml > src/mongoRequest.ml.depends # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoRequest.ml > src/mongoRequest.ml.depends # cached
 # Target: src/mongoMessage.ml.depends, tags: { extension:ml, file:src/mongoMessage.ml, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoMessage.ml > src/mongoMessage.ml.depends # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoMessage.ml > src/mongoMessage.ml.depends # cached
 # Target: src/mongoUtils.ml.depends, tags: { extension:ml, file:src/mongoUtils.ml, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoUtils.ml > src/mongoUtils.ml.depends # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoUtils.ml > src/mongoUtils.ml.depends # cached
 # Target: src/mongoUtils.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:src/mongoUtils.cmo, file:src/mongoUtils.ml, implem, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoUtils.cmo src/mongoUtils.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoUtils.cmo src/mongoUtils.ml # cached
 # Target: src/mongoMessage.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:src/mongoMessage.cmo, file:src/mongoMessage.ml, implem, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoMessage.cmo src/mongoMessage.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoMessage.cmo src/mongoMessage.ml # cached
 # Target: src/mongoRequest.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:src/mongoRequest.cmo, file:src/mongoRequest.ml, implem, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoRequest.cmo src/mongoRequest.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoRequest.cmo src/mongoRequest.ml # cached
 # Target: src/mongoCmd.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:src/mongoCmd.cmo, file:src/mongoCmd.ml, implem, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoCmd.cmo src/mongoCmd.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoCmd.cmo src/mongoCmd.ml # cached
 # Target: src/mongoReply.mli.depends, tags: { extension:mli, file:src/mongoReply.mli, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoReply.mli > src/mongoReply.mli.depends # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoReply.mli > src/mongoReply.mli.depends # cached
 # Target: src/mongoReply.cmi, tags: { byte, compile, extension:mli, file:src/mongoReply.mli, interf, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoReply.cmi src/mongoReply.mli # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoReply.cmi src/mongoReply.mli # cached
 # Target: src/mongo.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:src/mongo.cmo, file:src/mongo.ml, implem, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongo.cmo src/mongo.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongo.cmo src/mongo.ml # cached
 # Target: test/test_mongo.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:test/test_mongo.cmo, file:test/test_mongo.ml, implem, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I test -I src -o test/test_mongo.cmo test/test_mongo.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I test -I src -o test/test_mongo.cmo test/test_mongo.ml
 # Target: src/mongoUtils.cmx, tags: { compile, extension:cmx, extension:ml, file:src/mongoUtils.cmx, file:src/mongoUtils.ml, implem, native, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoUtils.cmx src/mongoUtils.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoUtils.cmx src/mongoUtils.ml # cached
 # Target: src/mongoMessage.cmx, tags: { compile, extension:cmx, extension:ml, file:src/mongoMessage.cmx, file:src/mongoMessage.ml, implem, native, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoMessage.cmx src/mongoMessage.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoMessage.cmx src/mongoMessage.ml # cached
 # Target: src/mongoRequest.cmx, tags: { compile, extension:cmx, extension:ml, file:src/mongoRequest.cmx, file:src/mongoRequest.ml, implem, native, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoRequest.cmx src/mongoRequest.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoRequest.cmx src/mongoRequest.ml # cached
 # Target: src/mongoCmd.cmx, tags: { compile, extension:cmx, extension:ml, file:src/mongoCmd.cmx, file:src/mongoCmd.ml, implem, native, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoCmd.cmx src/mongoCmd.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoCmd.cmx src/mongoCmd.ml # cached
 # Target: src/mongoReply.ml.depends, tags: { extension:ml, file:src/mongoReply.ml, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoReply.ml > src/mongoReply.ml.depends # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoReply.ml > src/mongoReply.ml.depends # cached
 # Target: src/mongoReply.cmx, tags: { compile, extension:cmx, extension:ml, file:src/mongoReply.cmx, file:src/mongoReply.ml, implem, native, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoReply.cmx src/mongoReply.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongoReply.cmx src/mongoReply.ml # cached
 # Target: src/mongo.cmx, tags: { compile, extension:cmx, extension:ml, file:src/mongo.cmx, file:src/mongo.ml, implem, native, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongo.cmx src/mongo.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I src -o src/mongo.cmx src/mongo.ml # cached
 # Target: test/test_mongo.cmx, tags: { compile, extension:cmx, extension:ml, file:test/test_mongo.cmx, file:test/test_mongo.ml, implem, native, ocaml, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I test -I src -o test/test_mongo.cmx test/test_mongo.ml # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlopt -c -package unix -package bson -I test -I src -o test/test_mongo.cmx test/test_mongo.ml
 # Target: test/test_mongo.native, tags: { dont_link_with, extension:native, file:test/test_mongo.native, link, native, ocaml, package(bson), package(unix), program, quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlopt -linkpkg -package unix -package bson src/mongoUtils.cmx src/mongoMessage.cmx src/mongoRequest.cmx src/mongoCmd.cmx src/mongoReply.cmx src/mongo.cmx test/test_mongo.cmx -o test/test_mongo.native # cached
+/Users/iamindcs/.opam/4.00.1/bin/ocamlfind ocamlopt -linkpkg -package unix -package bson src/mongoUtils.cmx src/mongoMessage.cmx src/mongoRequest.cmx src/mongoCmd.cmx src/mongoReply.cmx src/mongo.cmx test/test_mongo.cmx -o test/test_mongo.native
 # Compilation successful.

@@ -28,6 +28,7 @@ let chr0 = Char.chr 0;;
 let read_reply in_ch =
   let len_str = String.make 4 chr0 in
   really_input in_ch len_str 0 4;
+  print_endline len_str;
   let (len32, _) = decode_int32 len_str 0 in
   let len = Int32.to_int len32 in
   let str = String.make (len-4) chr0 in
@@ -38,11 +39,11 @@ let read_reply in_ch =
   Buffer.contents buf;;
 
 let send_cmd m cmd = 
-  let in_ch = Unix.in_channel_of_descr m in
   let out_ch = Unix.out_channel_of_descr m in
   output_string out_ch cmd.cmd_query;  
   flush out_ch;
   Printf.printf "sent cmd %s" cmd.cmd_name;
+  let in_ch = Unix.in_channel_of_descr m in
   MongoReply.decode_reply (read_reply in_ch);;
 
 let get_databases m = send_cmd m listDatabases_cmd;;
@@ -60,7 +61,7 @@ let send_no_reply m request_str =
   print_endline request_str;
   let out_ch = Unix.out_channel_of_descr m in
   output_string out_ch request_str;
-  print_endline "sent request";;  
+  print_endline "sent request";;
 
 let insert m db_name collection_name doc_list =
   send_no_reply m (MongoRequest.create_insert (cur_timestamp()) db_name collection_name 0l doc_list);;
