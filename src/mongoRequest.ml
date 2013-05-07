@@ -17,6 +17,24 @@ let create_query request_id db_name collection_name flags skip return query_doc 
   Buffer.add_buffer query_buf body_buf;
   Buffer.contents query_buf;;
 
+let create_insert request_id db_name collection_name flags query_doc_list =
+  let body_buf = Buffer.create 32 in
+  encode_int32 body_buf flags;
+  encode_cstring body_buf (db_name^"."^collection_name);
+  let rec add_doc = function
+    | [] -> ()
+    | hd::tl -> 
+      Buffer.add_string body_buf (encode hd);
+      add_doc tl
+  in
+  add_doc query_doc_list;
+  let body_len = Buffer.length body_buf in
+  let header_str = encode_header (create_header body_len request_id OP_INSERT) in
+  let query_buf = Buffer.create (4*4+body_len) in
+  Buffer.add_string query_buf header_str;
+  Buffer.add_buffer query_buf body_buf;
+  Buffer.contents query_buf;;
+
 
 
 

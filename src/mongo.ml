@@ -40,8 +40,7 @@ let read_reply in_ch =
 let send_cmd m cmd = 
   let in_ch = Unix.in_channel_of_descr m in
   let out_ch = Unix.out_channel_of_descr m in
-  output_string out_ch cmd.cmd_query;
-  
+  output_string out_ch cmd.cmd_query;  
   flush out_ch;
   Printf.printf "sent cmd %s" cmd.cmd_name;
   MongoReply.decode_reply (read_reply in_ch);;
@@ -57,5 +56,13 @@ let get_listCommands m = send_cmd m buildInfo_cmd;;
 let get_serverStatus m = send_cmd m serverStatus_cmd;;
 
 
+let send_no_reply m request_str =
+  print_endline request_str;
+  let out_ch = Unix.out_channel_of_descr m in
+  output_string out_ch request_str;
+  print_endline "sent request";;  
+
+let insert m db_name collection_name doc_list =
+  send_no_reply m (MongoRequest.create_insert (cur_timestamp()) db_name collection_name 0l doc_list);;
 
 
