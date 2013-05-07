@@ -1,21 +1,36 @@
-open Bson;;
+(*open Bson;;
 open MongoUtils;;
-open MongoReply;;
+open MongoReply;;*)
 
 let m = Mongo.connect_local 27017;;
 
-(*let _ = print_buffer (MongoMessage.dbs_cmd);;*)
+let dbs_reply = Mongo.get_databases m;;
+let _ = MongoReply.print_reply dbs_reply;;
 
-let dbs_reply = Mongo.get_dbs m;;
+let buildInfo_reply = Mongo.get_buildInfo m;;
+let _ = MongoReply.print_reply buildInfo_reply;;
 
-let _ = 
-  match dbs_reply.document_list with
-    | [] -> print_endline "finished get dbs_docs"
-    | hd::tl -> print_endline (to_simple_json hd);;
+let collStats_reply = Mongo.get_collStats m;;
+let _ = MongoReply.print_reply collStats_reply;;
+
+let connPoolStats_reply = Mongo.get_connPoolStats m;;
+let _ = MongoReply.print_reply connPoolStats_reply;;
+
+let cursorInfo_reply = Mongo.get_cursorInfo m;;
+let _ = MongoReply.print_reply cursorInfo_reply;;
+
+let getCmdLineOpts_reply = Mongo.get_getCmdLineOpts m;;
+let _ = MongoReply.print_reply getCmdLineOpts_reply;;
+
+let hostInfo_reply = Mongo.get_hostInfo m;;
+let _ = MongoReply.print_reply hostInfo_reply;;
+
+let listCommands_reply = Mongo.get_listCommands m;;
+let _ = MongoReply.print_reply listCommands_reply;;
 
 
-
-
+let serverStatus_reply = Mongo.get_serverStatus m;;
+let _ = MongoReply.print_reply serverStatus_reply;;
 
 
 let _ = Mongo.close m;;

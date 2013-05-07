@@ -53,3 +53,5 @@ let decode_cstring str cur =
   else (String.sub str cur (x00-cur), x00+1);;
 
 let cur_timestamp () = Int32.of_float (Unix.time());;
+
+  

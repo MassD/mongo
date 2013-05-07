@@ -38,5 +38,18 @@ let decode_reply str =
     document_list = doc_list
   };;
 
+let print_reply r =
+  MongoMessage.print_header r.header;
+  Printf.printf "response_flags = %ld \n" r.response_flags;
+  Printf.printf "cursor_id = %Ld \n" r.cursor_id;
+  Printf.printf "starting_from = %ld \n" r.starting_from;
+  Printf.printf "num_returned = %ld \n" r.num_returned;
+  let rec print_doc_list = function
+    | [] -> print_endline ""
+    | hd::tl -> print_endline (Bson.to_simple_json hd);print_doc_list tl
+  in 
+  print_doc_list r.document_list;;
+  
+
 
       

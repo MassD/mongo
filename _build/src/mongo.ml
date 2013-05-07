@@ -1,4 +1,5 @@
 open MongoUtils;;
+open MongoCmd;;
 
 let wrap_unix f arg = 
   try (f arg) with
@@ -36,11 +37,25 @@ let read_reply in_ch =
   Buffer.add_string buf str;
   Buffer.contents buf;;
 
-let get_dbs m =
+let send_cmd m cmd = 
   let in_ch = Unix.in_channel_of_descr m in
   let out_ch = Unix.out_channel_of_descr m in
-  output_string out_ch MongoCmd.get_dbs_cmd_query;
-  print_endline "output dbs_cmd";
+  output_string out_ch cmd.cmd_query;
+  
   flush out_ch;
-  print_endline "flushed dbs_cmd and waiting for answer";
+  Printf.printf "sent cmd %s" cmd.cmd_name;
   MongoReply.decode_reply (read_reply in_ch);;
+
+let get_databases m = send_cmd m listDatabases_cmd;;
+let get_buildInfo m = send_cmd m buildInfo_cmd;;
+let get_collStats m = send_cmd m collStats_cmd;;
+let get_connPoolStats m = send_cmd m connPoolStats_cmd;;
+let get_cursorInfo m = send_cmd m cursorInfo_cmd;;
+let get_getCmdLineOpts m = send_cmd m getCmdLineOpts_cmd;;
+let get_hostInfo m = send_cmd m hostInfo_cmd;;
+let get_listCommands m = send_cmd m buildInfo_cmd;;
+let get_serverStatus m = send_cmd m serverStatus_cmd;;
+
+
+
+

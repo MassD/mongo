@@ -69,6 +69,11 @@ let decode_header str =
     op = op_of_code op_code
   };;
 
+let print_header h = 
+  Printf.printf "message_len = %ld \n" h.message_len;
+  Printf.printf "request_id = %ld \n" h.request_id;
+  Printf.printf "response_to = %ld \n" h.response_to;
+  Printf.printf "op = %ld \n" (op_to_code h.op);;
 
 
 

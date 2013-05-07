@@ -10,3 +10,5 @@ type reply =
 
 val decode_reply: string -> reply;;
 
+val print_reply: reply -> unit;;
+
