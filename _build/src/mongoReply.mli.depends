@@ -1,1 +1,1 @@
-src/mongoReply.mli: Bson MongoMessage
+src/mongoReply.mli: Bson MongoHeader
