@@ -12,3 +12,4 @@
 *.native
 *.byte
 .DS_Store
+.#mongo.mli
