@@ -1,0 +1,3 @@
+<**/src/*>: package(unix), package(bson)
+<**/test/*>: package(unix), package(bson)
+

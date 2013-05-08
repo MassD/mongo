@@ -8,11 +8,11 @@ type t =
       op: MongoOperation.t
     };;
 
-let create_header body_len request_id response_id op =
+let create_header body_len request_id response_to op =
   {
     message_len = Int32.of_int(body_len+4*4);
     request_id = request_id;
-    response_to = response_id;
+    response_to = response_to;
     op = op
   };;
 
@@ -42,7 +42,12 @@ let decode_header str =
   let (request_id, next) = decode_int32 str next in
   let (response_to, next) = decode_int32 str next in
   let (op_code, next) = decode_int32 str next in
-  create_header (Int32.to_int message_len) request_id response_to (MongoOperation.of_code op_code);;
+  {
+    message_len = message_len;
+    request_id = request_id;
+    response_to = response_to;
+    op = (MongoOperation.of_code op_code)
+  };;
 
 let to_string h = 
   let buf = Buffer.create 64 in

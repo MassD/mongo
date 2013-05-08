@@ -42,6 +42,7 @@ let create_delete request_id db_name collection_name flags selector_doc =
   combine_header_body request_id OP_DELETE body_buf;;
 
 let create_query request_id db_name collection_name flags skip return query_doc selector_doc =
+  (*Printf.printf "request_id = %ld\n" request_id;*)
   let body_buf = Buffer.create 32 in
   encode_int32 body_buf flags;
   encode_cstring body_buf (db_name^"."^collection_name);

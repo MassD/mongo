@@ -1,42 +1,54 @@
-(*open Bson;;
-open MongoUtils;;
-open MongoReply;;*)
 
-let m = Mongo.connect_local 27017;;
-
-
-let dbs_reply = Mongo.get_databases m;;
-let _ = MongoReply.print_reply dbs_reply;;
-(*
-let buildInfo_reply = Mongo.get_buildInfo m;;
-let _ = MongoReply.print_reply buildInfo_reply;;
-
-let collStats_reply = Mongo.get_collStats m;;
-let _ = MongoReply.print_reply collStats_reply;;
-
-let connPoolStats_reply = Mongo.get_connPoolStats m;;
-let _ = MongoReply.print_reply connPoolStats_reply;;
-
-let cursorInfo_reply = Mongo.get_cursorInfo m;;
-let _ = MongoReply.print_reply cursorInfo_reply;;
-
-let getCmdLineOpts_reply = Mongo.get_getCmdLineOpts m;;
-let _ = MongoReply.print_reply getCmdLineOpts_reply;;
-
-let hostInfo_reply = Mongo.get_hostInfo m;;
-let _ = MongoReply.print_reply hostInfo_reply;;
-
-let listCommands_reply = Mongo.get_listCommands m;;
-let _ = MongoReply.print_reply listCommands_reply;;
-
-let serverStatus_reply = Mongo.get_serverStatus m;;
-let _ = MongoReply.print_reply serverStatus_reply;;
-*)
-
+let _ = print_endline "=========testing Mongo";;
+let m = Mongo.create_local_default "test_db" "test_collection";;
 let empty_doc = Bson.make();;
 let e_1 = Bson.create_int32 (1l);;
 let key_doc = Bson.add_element "key" e_1 empty_doc;;
+let _ = Mongo.insert m [key_doc];; 
+let _ = print_endline "=========tested Mongo";;
 
-let _ = Mongo.insert m "test123" "keys" [key_doc];; 
 
-(*let _ = Mongo.close m;;*)
+
+
+let _ = print_endline "=========testing MongoAdmin";;
+let a = MongoAdmin.create_local_default();;
+
+let _ = print_endline "==listDatabases";;
+let dbs_reply = MongoAdmin.listDatabases a;;
+let _ = print_endline (MongoReply.to_string dbs_reply);;
+
+let _ = print_endline "==buildInfo";;
+let buildInfo_reply = MongoAdmin.buildInfo a;;
+let _ = print_endline (MongoReply.to_string buildInfo_reply);;
+
+let _ = print_endline "==collStats";;
+let collStats_reply = MongoAdmin.collStats a;;
+let _ = print_endline (MongoReply.to_string collStats_reply);;
+
+let _ = print_endline "==connPoolStats";;
+let connPoolStats_reply = MongoAdmin.connPoolStats a;;
+let _ = print_endline (MongoReply.to_string connPoolStats_reply);;
+
+let _ = print_endline "==cursorInfo";;
+let cursorInfo_reply = MongoAdmin.cursorInfo a;;
+let _ = print_endline (MongoReply.to_string cursorInfo_reply);;
+
+let _ = print_endline "==getCmdLineOpts";;
+let getCmdLineOpts_reply = MongoAdmin.getCmdLineOpts a;;
+let _ = print_endline (MongoReply.to_string getCmdLineOpts_reply);;
+
+let _ = print_endline "==hostInfo";;
+let hostInfo_reply = MongoAdmin.hostInfo a;;
+(*let _ = print_endline (MongoReply.to_string hostInfo_reply);;*)
+
+let _ = print_endline "==listCommands";;
+let listCommands_reply = MongoAdmin.listCommands a;;
+let _ = print_endline (MongoReply.to_string listCommands_reply);;
+
+let _ = print_endline "==serverStatus";;
+let serverStatus_reply = MongoAdmin.serverStatus a;;
+let _ = print_endline (MongoReply.to_string serverStatus_reply);;
+
+let _ = print_endline "=========tested MongoAdmin";;
+
+

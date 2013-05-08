@@ -18,22 +18,28 @@ let get_num_returned r = r.num_returned;;
 let get_document_list r = r.document_list;;
 
 let decode_reply_doc str =
+  print_endline str;
+  Printf.printf "doc str len = %d\n" (String.length str);
   let rec decode_doc cur acc =
     if cur >= String.length str then acc
     else 
       let (len32, _) = decode_int32 str cur in
       let len = Int32.to_int len32 in
+      Printf.printf "inside doc len = %d\n" len;
       decode_doc (cur+len) ((Bson.decode (String.sub str cur len))::acc)
   in
   List.rev (decode_doc 0 []);;
 
 let decode_reply str =
+  Printf.printf "real message len = %d\n" (String.length str);
   let header_str = String.sub str 0 (4*4) in
   let header = MongoHeader.decode_header header_str in
+  print_endline (MongoHeader.to_string header);
   let (flags, next) = decode_int32 str (4*4) in
   let (cursor, next) = decode_int64 str next in
   let (from, next) = decode_int32 str next in
   let (returned, next) = decode_int32 str next in
+  print_endline (string_of_int (Int32.to_int returned));
   let doc_str = String.sub str next ((String.length str)-next) in
   let doc_list = decode_reply_doc doc_str in
   {
@@ -60,15 +66,16 @@ let to_string r =
   Buffer.add_string buf "num_returned = ";
   Buffer.add_string buf (Int32.to_string r.num_returned);
   Buffer.add_string buf "\n";
-  let rec print_doc_list = function
-    | [] -> print_endline ""
+  Buffer.add_string buf "doc list: ";
+  Buffer.add_string buf "\n";
+  let rec process_doc_list = function
+    | [] -> ()
     | hd::tl -> 
-      Buffer.add_string buf "doc list: ";
       Buffer.add_string buf (Bson.to_simple_json hd);
       Buffer.add_string buf "\n";
-      print_doc_list tl
+      process_doc_list tl
   in 
-  print_doc_list r.document_list;
+  process_doc_list r.document_list;
   Buffer.contents buf;;
   
 

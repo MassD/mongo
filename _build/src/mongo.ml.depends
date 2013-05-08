@@ -1,1 +1,1 @@
-src/mongo.ml: Buffer Char Int32 MongoCmd MongoReply MongoRequest MongoUtils Printf String Unix
+src/mongo.ml: MongoRequest MongoSend MongoUtils Printf Unix
