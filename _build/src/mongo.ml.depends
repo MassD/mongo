@@ -1,1 +1,1 @@
-src/mongo.ml: MongoRequest MongoSend MongoUtils Printf Unix
+src/mongo.ml: Bson Int32 MongoRequest MongoSend MongoUtils Printf Unix

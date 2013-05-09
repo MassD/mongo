@@ -1,5 +1,4 @@
 open MongoUtils;;
-open Bson;;
 
 type t = Mongo.t;;
 
@@ -20,12 +19,11 @@ let create_local_default () = create "127.0.0.1" 27017;;
 let destory a = Mongo.destory a;;
 
 let create_cmd name = 
-  let empty_doc = make() in
-  let e_1 = create_int32 (1l) in
-  let cmd_doc name = Bson.add_element name e_1 empty_doc in
+  let e_1 = Bson.create_int32 (1l) in
+  let cmd_doc name = Bson.add_element name e_1 Bson.empty in
   {
     name=name; 
-    query =  MongoRequest.create_query (cur_timestamp()) admin_db_name admin_collection_name 0l 0l (-1l) (cmd_doc name) empty_doc
+    query =  MongoRequest.create_query (admin_db_name, admin_collection_name) ((cur_timestamp()),0l, 0l,(-1l)) ((cmd_doc name), Bson.empty)
   };;
   
 let send_cmd a cmd = MongoSend.send_with_reply (Mongo.get_file_descr a) cmd.query;;

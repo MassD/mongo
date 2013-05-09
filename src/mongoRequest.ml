@@ -11,7 +11,7 @@ let combine_header_body request_id op body_buf =
   Buffer.add_buffer whole_buf body_buf;
   Buffer.contents whole_buf;;
 
-let create_insert request_id db_name collection_name flags insert_doc_list =
+let create_insert (db_name,collection_name) (request_id,flags) insert_doc_list =
   let body_buf = Buffer.create 32 in
   encode_int32 body_buf flags;
   encode_cstring body_buf (db_name^"."^collection_name);
@@ -24,7 +24,7 @@ let create_insert request_id db_name collection_name flags insert_doc_list =
   add_doc insert_doc_list;
   combine_header_body request_id OP_INSERT body_buf;;
 
-let create_select_body_buf request_id db_name collection_name flags selector_doc =
+let create_select_body_buf (db_name,collection_name) (request_id,flags) selector_doc =
   let body_buf = Buffer.create 32 in
   encode_int32 body_buf 0l;
   encode_cstring body_buf (db_name^"."^collection_name);
@@ -32,16 +32,16 @@ let create_select_body_buf request_id db_name collection_name flags selector_doc
   Buffer.add_string body_buf (encode selector_doc);
   body_buf;;
 
-let create_update request_id db_name collection_name flags selector_doc update_doc =
-  let body_buf = create_select_body_buf request_id db_name collection_name flags selector_doc in
+let create_update (db_name,collection_name) (request_id,flags) (selector_doc,update_doc) =
+  let body_buf = create_select_body_buf (db_name,collection_name) (request_id,flags) selector_doc in
   Buffer.add_string body_buf (encode update_doc);
   combine_header_body request_id OP_UPDATE body_buf;;
 
-let create_delete request_id db_name collection_name flags selector_doc =
-  let body_buf = create_select_body_buf request_id db_name collection_name flags selector_doc in
+let create_delete (db_name,collection_name) (request_id,flags) selector_doc =
+  let body_buf = create_select_body_buf (db_name,collection_name) (request_id,flags) selector_doc in
   combine_header_body request_id OP_DELETE body_buf;;
 
-let create_query request_id db_name collection_name flags skip return query_doc selector_doc =
+let create_query (db_name,collection_name) (request_id,flags,skip,return) (query_doc,selector_doc) =
   (*Printf.printf "request_id = %ld\n" request_id;*)
   let body_buf = Buffer.create 32 in
   encode_int32 body_buf flags;
@@ -52,7 +52,7 @@ let create_query request_id db_name collection_name flags skip return query_doc 
   if not (Bson.is_empty selector_doc) then Buffer.add_string body_buf (encode selector_doc);
   combine_header_body request_id OP_QUERY body_buf;;
 
-let create_get_more request_id db_name collection_name return cursor =
+let create_get_more (db_name,collection_name) (request_id,return) cursor =
   let body_buf = Buffer.create 32 in
   encode_int32 body_buf 0l;
   encode_cstring body_buf (db_name^"."^collection_name);

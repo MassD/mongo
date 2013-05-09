@@ -3,8 +3,6 @@
 /home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules test/test_mongo.ml > test/test_mongo.ml.depends
 # Target: src/mongo.mli.depends, tags: { extension:mli, file:src/mongo.mli, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
 /home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongo.mli > src/mongo.mli.depends
-# Target: src/mongoAdmin.mli.depends, tags: { extension:mli, file:src/mongoAdmin.mli, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
-/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoAdmin.mli > src/mongoAdmin.mli.depends
 # Target: src/mongoReply.mli.depends, tags: { extension:mli, file:src/mongoReply.mli, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
 /home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoReply.mli > src/mongoReply.mli.depends
 # Target: src/mongoHeader.mli.depends, tags: { extension:mli, file:src/mongoHeader.mli, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
@@ -17,6 +15,8 @@
 /home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoHeader.cmi src/mongoHeader.mli
 # Target: src/mongoReply.cmi, tags: { byte, compile, extension:mli, file:src/mongoReply.mli, interf, ocaml, package(bson), package(unix), quiet, traverse }
 /home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongoReply.cmi src/mongoReply.mli
+# Target: src/mongoAdmin.mli.depends, tags: { extension:mli, file:src/mongoAdmin.mli, ocaml, ocamldep, package(bson), package(unix), quiet, traverse }
+/home/xinuo/.opam/4.00.1/bin/ocamlfind ocamldep -package unix -package bson -modules src/mongoAdmin.mli > src/mongoAdmin.mli.depends
 # Target: src/mongo.cmi, tags: { byte, compile, extension:mli, file:src/mongo.mli, interf, ocaml, package(bson), package(unix), quiet, traverse }
 /home/xinuo/.opam/4.00.1/bin/ocamlfind ocamlc -c -package unix -package bson -I src -o src/mongo.cmi src/mongo.mli
 # Target: src/mongoAdmin.cmi, tags: { byte, compile, extension:mli, file:src/mongoAdmin.mli, interf, ocaml, package(bson), package(unix), quiet, traverse }
