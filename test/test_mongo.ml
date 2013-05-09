@@ -39,7 +39,7 @@ let _ = print_endline (MongoReply.to_string getCmdLineOpts_reply);;
 
 let _ = print_endline "==hostInfo";;
 let hostInfo_reply = MongoAdmin.hostInfo a;;
-(*let _ = print_endline (MongoReply.to_string hostInfo_reply);;*)
+let _ = print_endline (MongoReply.to_string hostInfo_reply);;
 
 let _ = print_endline "==listCommands";;
 let listCommands_reply = MongoAdmin.listCommands a;;
