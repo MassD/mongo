@@ -14,6 +14,8 @@ For the conveniences, **bson.ml** and **bson.mli** are included in the **src** f
 
 Here is the [Bson.ml API doc](http://massd.github.io/bson/doc/Bson.html).
 
+***
+
 ### How to use it
 
 **Mongo** and **MongoAdmin** are the two modules for high level usage.
@@ -30,12 +32,16 @@ The usages of these two modules are similar:
 4. Only **Mongo.find** and **Mongo.get_more** will wait for a **MongoReply**. Others will finish immediately.
 5. **Mongo.destory** the Mongo to release the resources.
 
+***
+
 ### Sample usage
 
 Please refer to **test/test_mongo.ml** for a taste of usage.
 
 	ocamlbuild -use-ocamlfind -I src test/test_mongo.native
 	./test_mongo.native
+
+***
 
 ### Extend the driver
 
@@ -45,7 +51,9 @@ This driver can be used only for **essential** operations on MongoDB, particular
 
 I am slowly extend this driver and **experienced OCaml/MongoDB developers are welcomed to join**.
 
-I explain briefly about the source code structure as follows:
+***
+
+### The source code
 
 **MongoOperation** defines all operations allowed by MongoDB.
 
@@ -57,7 +65,9 @@ I explain briefly about the source code structure as follows:
 
 **MongoReply** is the type that contains the reply MongoDB.
 
-**Mongo** and **MongoAdmin** are desired to be extended. They contain the real client-faced high level APIs.**
+**Mongo** and **MongoAdmin** are the client-faced interfaces. They are the first places to be extended.
+
+***
 
 ### Misco
 
