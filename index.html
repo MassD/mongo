@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Mongo.ml by MassD</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Mongo.ml : An OCaml driver for Mongodb" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Mongo.ml</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Mongo.ml</h1>
-          <h2>An OCaml driver for Mongodb</h2>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/MassD/mongo">View on GitHub</a>
+
+          <h1 id="project_title">Mongo.ml</h1>
+          <h2 id="project_tagline">An OCaml driver for Mongodb</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/MassD/mongo/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/MassD/mongo/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
+    </div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/MassD/mongo/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/MassD/mongo/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/MassD/mongo" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <p><strong>Mongo.ml</strong> is an OCaml driver for MongoDB. </p>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p><strong>Mongo.ml</strong> is an OCaml driver for MongoDB. </p>
 
 <p>It supplies a series of APIs which can be used to communicate with MongoDB, i.e., <strong>Insert</strong>, <strong>Update</strong>, <strong>Delete</strong> and <strong>Query / Find</strong>.</p>
 
 <p>Here is the <a href="">Mongo.ml API docs</a>.</p>
 
-<h3>Prequisite</h3>
+<hr><h3>Prequisite</h3>
 
 <p>This driver uses <strong>unix</strong> and external <a href="http://massd.github.io/bson/">Bson.ml</a> modules.</p>
 
@@ -45,7 +45,7 @@
 
 <p>Here is the <a href="http://massd.github.io/bson/doc/Bson.html">Bson.ml API doc</a>.</p>
 
-<h3>How to use it</h3>
+<hr><h3>How to use it</h3>
 
 <p><strong>Mongo</strong> and <strong>MongoAdmin</strong> are the two modules for high level usage.</p>
 
@@ -55,7 +55,7 @@
 
 <p>The usages of these two modules are similar:</p>
 
-<ol>
+<hr><ol>
 <li>
 <strong>Mongo.create</strong> a Mongo with ip, port, db_name, and collection_name (MongoAdmin does not need db_name or collection_name)</li>
 <li>Depending on the request type, create the Bson document using <strong>Bson.ml</strong>
@@ -66,7 +66,7 @@
 <li>Only <strong>Mongo.find</strong> and <strong>Mongo.get_more</strong> will wait for a <strong>MongoReply</strong>. Others will finish immediately.</li>
 <li>
 <strong>Mongo.destory</strong> the Mongo to release the resources.</li>
-</ol><h3>Sample usage</h3>
+</ol><hr><h3>Sample usage</h3>
 
 <p>Please refer to <strong>test/test_mongo.ml</strong> for a taste of usage.</p>
 
@@ -74,7 +74,7 @@
 ./test_mongo.native
 </code></pre>
 
-<h3>Extend the driver</h3>
+<hr><h3>Extend the driver</h3>
 
 <p>Comparing to MongoDB's official drivers, <strong>this OCaml driver is not that complete.</strong></p>
 
@@ -84,7 +84,7 @@
 
 <p>I explain briefly about the source code structure as follows:</p>
 
-<p><strong>MongoOperation</strong> defines all operations allowed by MongoDB.</p>
+<hr><p><strong>MongoOperation</strong> defines all operations allowed by MongoDB.</p>
 
 <p><strong>MongoHeader</strong> defines the header that is used in MongoDB messages. It includes encoding / decoding the MongoDB messages. When constructing a <strong>MongoRequest</strong>, encoding is used; when constructing a <strong>MongoReply</strong> from the message sent by MongoDB, decoding is used.</p>
 
@@ -94,19 +94,23 @@
 
 <p><strong>MongoReply</strong> is the type that contains the reply MongoDB.</p>
 
-<p><strong>Mongo</strong> and <strong>MongoAdmin</strong> are desired to be extended. They contain the real client-faced high level APIs.**</p>
+<hr><p><strong>Mongo</strong> and <strong>MongoAdmin</strong> are desired to be extended. They contain the real client-faced high level APIs.**</p>
 
-<h3>Misco</h3>
+<hr><h3>Misco</h3>
 
 <p>The current version is <strong>0.66.0</strong>.</p>
-        </section>
+      </section>
+    </div>
 
-        <footer>
-          Mongo.ml is maintained by <a href="https://github.com/MassD">MassD</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Mongo.ml maintained by <a href="https://github.com/MassD">MassD</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
 
-                  <script type="text/javascript">
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -117,7 +121,6 @@
             } catch(err) {}
           </script>
 
-      </div>
-    </div>
+
   </body>
 </html>
