@@ -20,19 +20,19 @@ Here is the [API doc](http://massd.github.io/bson/doc/Bson.html) for **Bson.ml**
 
 **Mongo** is a MongoDB client for general purpose. It can be used to operate normal bson documents on MongoDB.
 
-**MongoAdmin** is a special MongoDB client for accessing admin level of MongoDB commands, such as **list databases**, etc. Please refer to [MongoDB commands](http://docs.mongodb.org/manual/reference/command/).
+**MongoAdmin** is a special MongoDB client for accessing admin level of MongoDB commands, such as _list databases_, etc. Please refer to [MongoDB commands](http://docs.mongodb.org/manual/reference/command/).
 
 The usages of these two modules are similar:
 
 1. **Mongo.create** a Mongo with ip, port, db\_name, and collection\_name (MongoAdmin does not need db\_name or collection\_name)
 2. Depending on the request type, create the Bson document using **Bson.ml**
-3. **Mongo.insert** / **Mongo.update** / **Mongo.delete** / **Mongo.find** / **Mongo.get**more** / **Mongo.kill_cursors**
-4. Only **Mongo.find** and **Mongo.get**more** will wait for a **MongoReply**. Others will finish immediately.
+3. **Mongo.insert** / **Mongo.update** / **Mongo.delete** / **Mongo.find** / **Mongo.get_more** / **Mongo.kill_cursors**
+4. Only **Mongo.find** and **Mongo.get_more** will wait for a **MongoReply**. Others will finish immediately.
 5. **Mongo.destory** the Mongo to release the resources.
 
 ### Sample usage
 
-Please refer to **test/test**mongo.ml** for a taste of usage.
+Please refer to **test/test_mongo.ml** for a taste of usage.
 
 	ocamlbuild -use-ocamlfind -I src test/test_mongo.native
 	./test_mongo.native
@@ -53,11 +53,11 @@ I explain briefly about the source code structure as follows:
 
 **MongoRequest** create the message bytes (string) for all requests. The output string can be used to **MongoSend** to send to MongoDB socket. Every function inside has full parameters according to [MongoDB wire protocol](http://docs.mongodb.org/meta-driver/latest/legacy/mongodb-wire-protocol/).
 
-**MongoSend** takes a **unix file**descr** and a **string** and send the string to the file_descr. It uses **unix**.
+**MongoSend** takes a **unix file_descr** and a **string** and send the string to the file_descr. It uses **unix**.
 
 **MongoReply** is the type that contains the reply MongoDB.
 
-****Mongo** and **MongoAdmin** are desired to be extended. They contain the real client-faced high level APIs.**
+**Mongo** and **MongoAdmin** are desired to be extended. They contain the real client-faced high level APIs.**
 
 ### Misco
 
