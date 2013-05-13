@@ -30,6 +30,8 @@ The usages of these two modules are similar:
 4. Only **Mongo.find** and **Mongo.get_more** will wait for a **MongoReply**. Others will finish immediately.
 5. **Mongo.destory** the Mongo to release the resources.
 
+Here is the full [API doc](http://massd.github.io/mongo/doc/)
+
 ### Sample usage
 
 Please refer to **test/test_mongo.ml** for a taste of usage.
