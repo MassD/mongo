@@ -4,7 +4,7 @@
 
 It supplies a series of APIs which can be used to communicate with MongoDB, i.e., **Insert**, **Update**, **Delete** and **Query / Find**.
 
-Here is the [API docs]().
+Here is the [Mongo.ml API docs]().
 
 ### Prequisite
 
@@ -12,7 +12,7 @@ This driver uses **unix** and external [Bson.ml](http://massd.github.io/bson/) m
 
 For the conveniences, **bson.ml** and **bson.mli** are included in the **src** folder with **Mongo.ml**
 
-Here is the [API doc](http://massd.github.io/bson/doc/Bson.html) for **Bson.ml**
+Here is the [Bson.ml API doc](http://massd.github.io/bson/doc/Bson.html).
 
 ### How to use it
 
@@ -29,8 +29,6 @@ The usages of these two modules are similar:
 3. **Mongo.insert** / **Mongo.update** / **Mongo.delete** / **Mongo.find** / **Mongo.get_more** / **Mongo.kill_cursors**
 4. Only **Mongo.find** and **Mongo.get_more** will wait for a **MongoReply**. Others will finish immediately.
 5. **Mongo.destory** the Mongo to release the resources.
-
-Here is the full [API doc](http://massd.github.io/mongo/doc/)
 
 ### Sample usage
 
