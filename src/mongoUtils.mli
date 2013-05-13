@@ -1,3 +1,7 @@
+(**
+   This module contains some utility tools or helpers
+*)
+
 val print_buffer: string -> unit;;
 
 val cur_timestamp: unit -> int32;;
