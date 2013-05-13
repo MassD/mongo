@@ -57,7 +57,7 @@ I explain briefly about the source code structure as follows:
 
 **MongoReply** is the type that contains the reply MongoDB.
 
-****Mongo** and **MongoAdmin** are desired to be extended. They contain the real client-faced high level APIs.**
+**Mongo** and **MongoAdmin** are desired to be extended. They contain the real client-faced high level APIs.**
 
 ### Misco
 
