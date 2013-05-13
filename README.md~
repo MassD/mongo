@@ -24,9 +24,9 @@ Here is the [API doc](http://massd.github.io/bson/doc/Bson.html) for **Bson.ml**
 
 The usages of these two modules are similar:
 
-1. **Mongo.create** a Mongo with ip, port, db\**name, and collection\**name (MongoAdmin does not need db\**name or collection\**name)
+1. **Mongo.create** a Mongo with ip, port, db\_name, and collection\_name (MongoAdmin does not need db\_name or collection\_name)
 2. Depending on the request type, create the Bson document using **Bson.ml**
-3. **Mongo.insert** / **Mongo.update** / **Mongo.delete** / **Mongo.find** / **Mongo.get**more** / **Mongo.kill**cursors**
+3. **Mongo.insert** / **Mongo.update** / **Mongo.delete** / **Mongo.find** / **Mongo.get**more** / **Mongo.kill_cursors**
 4. Only **Mongo.find** and **Mongo.get**more** will wait for a **MongoReply**. Others will finish immediately.
 5. **Mongo.destory** the Mongo to release the resources.
 
@@ -34,8 +34,8 @@ The usages of these two modules are similar:
 
 Please refer to **test/test**mongo.ml** for a taste of usage.
 
-	ocamlbuild -use-ocamlfind -I src test/test**mongo.native
-	./test**mongo.native
+	ocamlbuild -use-ocamlfind -I src test/test_mongo.native
+	./test_mongo.native
 
 ### Extend the driver
 
@@ -53,7 +53,7 @@ I explain briefly about the source code structure as follows:
 
 **MongoRequest** create the message bytes (string) for all requests. The output string can be used to **MongoSend** to send to MongoDB socket. Every function inside has full parameters according to [MongoDB wire protocol](http://docs.mongodb.org/meta-driver/latest/legacy/mongodb-wire-protocol/).
 
-**MongoSend** takes a **unix file**descr** and a **string** and send the string to the file**descr. It uses **unix**.
+**MongoSend** takes a **unix file**descr** and a **string** and send the string to the file_descr. It uses **unix**.
 
 **MongoReply** is the type that contains the reply MongoDB.
 
