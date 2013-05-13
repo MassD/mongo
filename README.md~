@@ -55,15 +55,17 @@ I explain briefly about the source code structure as follows:
 
 `MongoSend` takes a `unix file_descr` and a `string` and send the string to the file_descr. It uses `unix`.
 
+`MongoReply` is the type that contains the reply MongoDB.
+
+**`Mongo` and `MongoAdmin` are desired to be extended. They contain the real client-faced high level APIs.**
+
 ### Misco
 
 The current version is **0.66.0**.
 
 
 
-`MongoReply` is the type that contains the reply MongoDB.
 
-**`Mongo` and `MongoAdmin` are desired to be extended. They contain the real client-faced high level APIs.**
 
 
 
