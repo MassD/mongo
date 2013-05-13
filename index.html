@@ -37,7 +37,7 @@
 
 <p>Here is the <a href="">Mongo.ml API docs</a>.</p>
 
-<hr><h3>Prequisite</h3>
+<h3>Prequisite</h3>
 
 <p>This driver uses <strong>unix</strong> and external <a href="http://massd.github.io/bson/">Bson.ml</a> modules.</p>
 
@@ -55,7 +55,7 @@
 
 <p>The usages of these two modules are similar:</p>
 
-<hr><ol>
+<ol>
 <li>
 <strong>Mongo.create</strong> a Mongo with ip, port, db_name, and collection_name (MongoAdmin does not need db_name or collection_name)</li>
 <li>Depending on the request type, create the Bson document using <strong>Bson.ml</strong>
@@ -82,9 +82,9 @@
 
 <p>I am slowly extend this driver and <strong>experienced OCaml/MongoDB developers are welcomed to join</strong>.</p>
 
-<p>I explain briefly about the source code structure as follows:</p>
+<hr><h3>The source code</h3>
 
-<hr><p><strong>MongoOperation</strong> defines all operations allowed by MongoDB.</p>
+<p><strong>MongoOperation</strong> defines all operations allowed by MongoDB.</p>
 
 <p><strong>MongoHeader</strong> defines the header that is used in MongoDB messages. It includes encoding / decoding the MongoDB messages. When constructing a <strong>MongoRequest</strong>, encoding is used; when constructing a <strong>MongoReply</strong> from the message sent by MongoDB, decoding is used.</p>
 
@@ -94,7 +94,7 @@
 
 <p><strong>MongoReply</strong> is the type that contains the reply MongoDB.</p>
 
-<hr><p><strong>Mongo</strong> and <strong>MongoAdmin</strong> are desired to be extended. They contain the real client-faced high level APIs.**</p>
+<p><strong>Mongo</strong> and <strong>MongoAdmin</strong> are the client-faced interfaces. They are the first places to be extended.</p>
 
 <hr><h3>Misco</h3>
 
