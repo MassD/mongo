@@ -1,0 +1,6 @@
+name="mongo"
+description="An OCaml driver for MongoDB"
+version="0.66.0"
+requires    ="unix"
+archive(byte)="mongo.cmo "
+archive(native)="mongo.cmx"

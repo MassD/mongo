@@ -32,7 +32,7 @@ val create_local_default: unit -> t;;
 (** destory a MongoAdmin. Please use this to destory a MongoAdmin once it finishes its purpose, in order to release system resources. May raise MongoAdmin_failed exception.*)
 val destory: t -> unit;;
 
-(** {6 Commands via a MongoAdmin, aay raise MongoAdmin_failed exception.} *)
+(** {6 Commands via a MongoAdmin, may raise MongoAdmin_failed exception.} *)
 
 val listDatabases: t -> MongoReply.t;;
 val buildInfo: t -> MongoReply.t;;
