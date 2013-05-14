@@ -4,7 +4,7 @@
 
 It supplies a series of APIs which can be used to communicate with MongoDB, i.e., **Insert**, **Update**, **Delete** and **Query / Find**.
 
-Here is the [Mongo.ml API docs]().
+Here is the [Mongo.ml API docs](http://massd.github.io/mongo/doc/).
 
 ### Prequisite
 
