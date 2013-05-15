@@ -83,6 +83,29 @@ let get_more m c = get_more_of_num m c 0;;
 let kill_cursors_in c_list = MongoRequest.create_kill_cursors (get_request_id()) c_list;;
 let kill_cursors m c_list = wrap_unix send_only (m, wrap_bson kill_cursors_in c_list);;
 
+let ensure_index m index unique =
+  let doc =
+    let key_doc = 
+      Bson.add_element "key" (Bson.create_doc_element (Bson.add_element index (Bson.create_int32 1l) Bson.empty)) Bson.empty in
+    let main_doc = 
+      Bson.add_element "name" (Bson.create_string "xxx") (
+	Bson.add_element "v" (Bson.create_int32 1l)
+	  (Bson.add_element "ns" (Bson.create_string (m.db_name ^ "." ^ m.collection_name)) key_doc)) 
+    in
+    if unique then Bson.add_element "unique" (Bson.create_boolean true) main_doc
+    else main_doc
+  in
+  print_endline (Bson.to_simple_json doc);
+  let system_indexes_m = 
+    {
+    db_name = m.db_name;
+    collection_name = "system.indexes";
+    ip = m.ip;
+    port = m.port;
+    file_descr = m.file_descr
+    } in
+  insert system_indexes_m [doc];;
 
+  
 
 

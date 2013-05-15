@@ -100,3 +100,7 @@ let _ = print_endline "=========tested Mongo get_more";;
 let _ = print_endline "\n=========testing Mongo kill_cursors";;
 let _ = Mongo.kill_cursors m [c];;
 let _ = print_endline "=========tested Mongo kill_cursors";;
+
+let _ = print_endline "\n=========testing Mongo index";;
+let _ = Mongo.ensure_index m "birth" true;;
+let _ = print_endline "=========tested Mongo index";;

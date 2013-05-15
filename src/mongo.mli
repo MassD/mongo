@@ -97,3 +97,12 @@ val get_more: t -> int64 -> MongoReply.t;;
 
 (** kill a list of cursors, to save MongoDB resources. e.g., kill_cursors m cursor_list. May raise Mongo_failed exception.*)
 val kill_cursors: t -> int64 list -> unit;;
+
+(** {6 Index} *)
+
+(** ensure an index and force it to be unique *)
+val ensure_index: t -> string -> bool -> unit;;
+
+(*
+(** simply remove an index *)
+val remove_index: t -> string -> unit;;*)
