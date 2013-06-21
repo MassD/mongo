@@ -49,6 +49,11 @@ let key_doc = Bson.add_element "key" e_1 empty_doc;;
 let _ = Mongo.insert m [key_doc];; 
 let _ = print_endline "=========tested Mongo insert";;
 
+let e_1_1 = Bson.create_string ("");;
+let key_doc_1 = Bson.add_element "key" e_1_1 empty_doc;;
+let _ = Mongo.insert m [key_doc_1];; 
+let _ = print_endline "=========tested Mongo insert";;
+
 
 let _ = print_endline "=========testing Mongo find";;
 let r = Mongo.find m;;

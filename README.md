@@ -10,8 +10,6 @@ Here is the [Mongo.ml API docs](http://massd.github.io/mongo/doc/).
 
 This driver uses **unix** and external [Bson.ml](http://massd.github.io/bson/) modules.
 
-For the conveniences, **bson.ml** and **bson.mli** are included in the **src** folder with **Mongo.ml**
-
 Here is the [Bson.ml API doc](http://massd.github.io/bson/doc/Bson.html).
 
 ***
@@ -71,7 +69,7 @@ I am slowly extend this driver and **experienced OCaml/MongoDB developers are we
 
 ### Misco
 
-The current version is **0.66.0**.
+The current version is **0.66.1**.
 
 
 
