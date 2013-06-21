@@ -37,15 +37,15 @@
 
 <p>Here is the <a href="http://massd.github.io/mongo/doc/">Mongo.ml API docs</a>.</p>
 
-<h3>Prequisite</h3>
+<h3>
+<a name="prequisite" class="anchor" href="#prequisite"><span class="octicon octicon-link"></span></a>Prequisite</h3>
 
 <p>This driver uses <strong>unix</strong> and external <a href="http://massd.github.io/bson/">Bson.ml</a> modules.</p>
 
-<p>For the conveniences, <strong>bson.ml</strong> and <strong>bson.mli</strong> are included in the <strong>src</strong> folder with <strong>Mongo.ml</strong></p>
-
 <p>Here is the <a href="http://massd.github.io/bson/doc/Bson.html">Bson.ml API doc</a>.</p>
 
-<hr><h3>How to use it</h3>
+<hr><h3>
+<a name="how-to-use-it" class="anchor" href="#how-to-use-it"><span class="octicon octicon-link"></span></a>How to use it</h3>
 
 <p><strong>Mongo</strong> and <strong>MongoAdmin</strong> are the two modules for high level usage.</p>
 
@@ -66,7 +66,8 @@
 <li>Only <strong>Mongo.find</strong> and <strong>Mongo.get_more</strong> will wait for a <strong>MongoReply</strong>. Others will finish immediately.</li>
 <li>
 <strong>Mongo.destory</strong> the Mongo to release the resources.</li>
-</ol><hr><h3>Sample usage</h3>
+</ol><hr><h3>
+<a name="sample-usage" class="anchor" href="#sample-usage"><span class="octicon octicon-link"></span></a>Sample usage</h3>
 
 <p>Please refer to <strong>test/test_mongo.ml</strong> for a taste of usage.</p>
 
@@ -74,7 +75,8 @@
 ./test_mongo.native
 </code></pre>
 
-<hr><h3>Extend the driver</h3>
+<hr><h3>
+<a name="extend-the-driver" class="anchor" href="#extend-the-driver"><span class="octicon octicon-link"></span></a>Extend the driver</h3>
 
 <p>Comparing to MongoDB's official drivers, <strong>this OCaml driver is not that complete.</strong></p>
 
@@ -82,7 +84,8 @@
 
 <p>I am slowly extend this driver and <strong>experienced OCaml/MongoDB developers are welcomed to join</strong>.</p>
 
-<hr><h3>The source code</h3>
+<hr><h3>
+<a name="the-source-code" class="anchor" href="#the-source-code"><span class="octicon octicon-link"></span></a>The source code</h3>
 
 <p><strong>MongoOperation</strong> defines all operations allowed by MongoDB.</p>
 
@@ -96,9 +99,10 @@
 
 <p><strong>Mongo</strong> and <strong>MongoAdmin</strong> are the client-faced interfaces. They are the first places to be extended.</p>
 
-<hr><h3>Misco</h3>
+<hr><h3>
+<a name="misco" class="anchor" href="#misco"><span class="octicon octicon-link"></span></a>Misco</h3>
 
-<p>The current version is <strong>0.66.0</strong>.</p>
+<p>The current version is <strong>0.66.1</strong>.</p>
       </section>
     </div>
 
