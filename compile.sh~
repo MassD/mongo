@@ -1,8 +1,0 @@
-ocamlbuild -use-ocamlfind src/mongo.native
-ocamlbuild -use-ocamlfind src/mongo.byte
-
-ocamlbuild -use-ocamlfind src/mongo.native
-ocamlbuild -use-ocamlfind src/mongo.byte
-
-ocamlbuild -use-ocamlfind src/mongo.native
-ocamlbuild -use-ocamlfind src/mongo.byte
