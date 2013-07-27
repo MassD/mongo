@@ -1,0 +1,13 @@
+OASISFormat: 0.3
+Name:        mongo.ml
+Version:     0.66.1
+Synopsis:    OCaml driver for MongoDB
+Authors:     massd http://massd.github.io/
+License:     GPL-3
+Plugins:     META (0.3), StdFiles (0.3)
+
+Library mongo
+  Path:       src
+  BuildTools: ocamlbuild
+  Modules:    Mongo, MongoAdmin, MongoHeader, MongoOperation, MongoReply, MongoRequest, MongoSend, MongoUtils
+  BuildDepends : bson
