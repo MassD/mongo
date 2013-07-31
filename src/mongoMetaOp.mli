@@ -12,3 +12,13 @@ val max : Bson.t -> Bson.t -> Bson.t
 val min : Bson.t -> Bson.t -> Bson.t
 (* Sorts the results of a query *)
 val orderBy : Bson.t -> Bson.t -> Bson.t
+(* Provides information on the query plan *)
+val explain : Bson.t -> Bson.t
+(* Forces the query optimizer to use a specific index to fulfill the query*)
+val hint : Bson.t -> Bson.t -> Bson.t
+(* Only return the index field or fields for the results of the query *)
+val returnKey : Bson.t -> Bson.t
+(* Adds a field $diskLoc to the returned documents. The $diskLoc field contains the disk location information *)
+val showDiskLoc : Bson.t -> Bson.t
+(* Prevents the cursor from returning a document more than once because an intervening write operation results in a move of the document *)
+val snapshot : Bson.t -> Bson.t
