@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 6e73df88bde3c705ad57448227080943) *)
+(* DO NOT EDIT (digest: a6cc5c30aa7e11a7da00213c69d0af5c) *)
 This is the INSTALL file for the mongo.ml distribution.
 
 This package uses OASIS to generate its build system. See section OASIS for
@@ -12,6 +12,7 @@ In order to compile this package, you will need:
 * ocaml
 * findlib
 * bson
+* lwt for library mongo_lwt
 
 Installing
 ==========

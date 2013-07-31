@@ -3,6 +3,9 @@ SETUP = ocaml setup.ml
 build: setup.data
 	$(SETUP) -build $(BUILDFLAGS)
 
+lwt: setup.data.lwt
+	$(SETUP) -build $(BUILDFLAGS)
+
 test: setup.data build
 	ocamlbuild -use-ocamlfind -I src test/test_mongo.native
 
@@ -26,5 +29,8 @@ distclean:
 
 setup.data:
 	$(SETUP) -configure $(CONFIGUREFLAGS)
+
+setup.data.lwt:
+	$(SETUP) -configure --enable-lwt $(CONFIGUREFLAGS)
 
 .PHONY: build doc test all install uninstall reinstall clean distclean configure

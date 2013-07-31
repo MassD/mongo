@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 6c52aed62ac12414d6a8c2d7b033231b) *)
+(* DO NOT EDIT (digest: da7e97ce5ad169a7a1d222866e241415) *)
 module OASISGettext = struct
 (* # 21 "src/oasis/OASISGettext.ml" *)
 
@@ -477,10 +477,10 @@ end
 open Ocamlbuild_plugin;;
 let package_default =
   {
-     MyOCamlbuildBase.lib_ocaml = [("mongo", ["src"])];
+     MyOCamlbuildBase.lib_ocaml = [("mongo", ["src"]); ("mongo_lwt", ["lwt"])];
      lib_c = [];
      flags = [];
-     includes = [];
+     includes = [("lwt", ["src"])];
      }
   ;;
 
