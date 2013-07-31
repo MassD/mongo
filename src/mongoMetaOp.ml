@@ -3,8 +3,8 @@
 type meta_op =
   | Comment of string
   | MaxScan of int
-  | Max of int
-  | Min of int
+  | Max of Bson.t
+  | Min of Bson.t
   | OrderBy of Bson.t
 
 let meta_op query op =
@@ -19,10 +19,10 @@ let meta_op query op =
       Bson.add_element "$comment" (Bson.create_string c) r
     | MaxScan i ->
       Bson.add_element "$maxScan" (Bson.create_int32 (Int32.of_int i)) r
-    | Max i ->
-      Bson.add_element "$max" (Bson.create_int32 (Int32.of_int i)) r
-    | Min i ->
-      Bson.add_element "$min" (Bson.create_int32 (Int32.of_int i)) r
+    | Max max_bson ->
+      Bson.add_element "$max" (Bson.create_doc_element max_bson) r
+    | Min min_bson ->
+      Bson.add_element "$min" (Bson.create_doc_element min_bson) r
     | OrderBy orderby_bson ->
       Bson.add_element "$orderby" (Bson.create_doc_element orderby_bson) r
 
