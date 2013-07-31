@@ -1,2 +1,26 @@
-<**/src/*>: package(unix), package(bson)
-<**/test/*>: package(unix), package(bson)
+# OASIS_START
+# DO NOT EDIT (digest: 8a5600f84760d2842d55ea9978bb1723)
+# Ignore VCS directories, you can use the same kind of rule outside 
+# OASIS_START/STOP if you want to exclude directories that contains 
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library mongo
+"src/mongo.cmxs": use_mongo
+<src/*.ml{,i}>: pkg_bson
+# Library mongo_lwt
+"lwt/mongo_lwt.cmxs": use_mongo_lwt
+<lwt/*.ml{,i}>: use_mongo
+<lwt/*.ml{,i}>: pkg_bson
+<lwt/*.ml{,i}>: pkg_lwt
+<lwt/*.ml{,i}>: pkg_lwt.syntax
+# OASIS_STOP
+<lwt/*.ml{,i}> : syntax_camlp4o

@@ -16,3 +16,5 @@
 .DS_Store
 .#mongo.mli
 _build/
+setup.log
+setup.data
