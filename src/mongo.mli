@@ -4,7 +4,7 @@
    This module includes a series of APIs that client can use directly to communicate with MongoDB. The most important functions are for insert, udpate, delete, query, get_more. They are the essential interactions that a client can have with MongoDB.
 
    Please note that the current version of APIs here are all essential only. For example, Clients cannot set detailed flags for queries, etc. All operations here are with default flags (which is 0).
-   
+
    A Mongo is bound to a db and a collection. All operations will be done upon the bound db and collection only.
 
    Please refer to {{: http://docs.mongodb.org/meta-driver/latest/legacy/mongodb-wire-protocol/ } MongoDB Wire Protocol } for more information
@@ -102,6 +102,13 @@ val kill_cursors: t -> int64 list -> unit;;
 
 (** ensure an index and force it to be unique *)
 val ensure_index: t -> string -> bool -> unit;;
+
+(** {6 Instance Administration Commands } *)
+val change_collection : t -> string -> t
+(** drops a database, deleting the associated data files **)
+val drop_database: t -> MongoReply.t
+(** removes an entire collection from a database **)
+val drop_collection: t -> MongoReply.t
 
 (*
 (** simply remove an index *)

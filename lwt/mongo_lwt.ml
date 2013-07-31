@@ -90,6 +90,20 @@ let get_more m c = get_more_of_num m c 0;;
 let kill_cursors_in c_list = MongoRequest.create_kill_cursors (get_request_id()) c_list;;
 let kill_cursors m c_list = wrap_unix_lwt send_only (m, wrap_bson kill_cursors_in c_list);;
 
+let change_collection m c =
+  { m with
+      collection_name = c ;
+  }
+
+let drop_in m q = MongoRequest.create_query (m.db_name, "$cmd") (get_request_id (), 0l, 0l, (-1l)) (q,Bson.empty)
+
+let drop_database m =
+  wrap_unix_lwt send (m,drop_in m (Bson.add_element "dropDatabase" (Bson.create_int32 1l) Bson.empty))
+
+let drop_collection m =
+  wrap_unix_lwt send (m,drop_in m (Bson.add_element "drop" (Bson.create_string m.collection_name) Bson.empty))
+
+
 (* currently the implementation is far not enough *)
 let ensure_index m index unique =
   let doc =

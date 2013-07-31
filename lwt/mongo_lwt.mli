@@ -105,6 +105,13 @@ val kill_cursors: t -> int64 list -> unit Lwt.t;;
 (** ensure an index and force it to be unique *)
 val ensure_index: t -> string -> bool -> unit Lwt.t;;
 
+(** {6 Instance Administration Commands } *)
+val change_collection : t -> string -> t
+(** drops a database, deleting the associated data files **)
+val drop_database: t -> MongoReply.t Lwt.t
+(** removes an entire collection from a database **)
+val drop_collection: t -> MongoReply.t Lwt.t
+
 (*
 (** simply remove an index *)
 val remove_index: t -> string -> unit;;*)
