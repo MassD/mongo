@@ -95,35 +95,122 @@ let change_collection m c =
       collection_name = c ;
   }
 
-let drop_in m q = MongoRequest.create_query (m.db_name, "$cmd") (get_request_id (), 0l, 0l, (-1l)) (q,Bson.empty)
-
 let drop_database m =
-  wrap_unix_lwt send (m,drop_in m (Bson.add_element "dropDatabase" (Bson.create_int32 1l) Bson.empty))
+  let m = change_collection m "$cmd" in
+  find_q_one m (Bson.add_element "dropDatabase" (Bson.create_int32 1l) Bson.empty)
 
 let drop_collection m =
-  wrap_unix_lwt send (m,drop_in m (Bson.add_element "drop" (Bson.create_string m.collection_name) Bson.empty))
+  let m_ = change_collection m "$cmd" in
+  find_q_one m_ (Bson.add_element "drop" (Bson.create_string m.collection_name) Bson.empty)
 
 
-(* currently the implementation is far not enough *)
-let ensure_index m index unique =
-  let doc =
-    let key_doc =
-      Bson.add_element "key" (Bson.create_doc_element (Bson.add_element index (Bson.create_int32 1l) Bson.empty)) Bson.empty in
-    let main_doc =
-      Bson.add_element "name" (Bson.create_string index) (
-	Bson.add_element "v" (Bson.create_int32 1l)
-	  (Bson.add_element "ns" (Bson.create_string (m.db_name ^ "." ^ m.collection_name)) key_doc))
-    in
-    if unique then Bson.add_element "unique" (Bson.create_boolean true) main_doc
-    else main_doc
+(** INDEX **)
+let get_indexes m =
+  let m_ = change_collection m "system.indexes" in
+  find_q m_ (Bson.add_element "ns" (Bson.create_string (m.db_name ^ "." ^ m.collection_name)) Bson.empty)
+
+type option =
+  | Background of bool
+  | Unique of bool
+  | Name of string
+  | DropDups of bool
+  | Sparse of bool
+  | ExpireAfterSeconds of int
+  | V of int
+  | Weight of Bson.t
+  | Default_language of string
+  | Language_override of string
+
+let ensure_index m key_bson options =
+  let default_name () =
+    let doc = Bson.get_element "key" key_bson in
+
+    List.fold_left (
+      fun s (k,e) ->
+        let i = Bson.get_int32 e in
+        if s = "" then
+          Printf.sprintf "%s_%ld" k i
+        else
+          Printf.sprintf "%s_%s_%ld" s k i
+    ) "" (Bson.all_elements (Bson.get_doc_element doc))
   in
-  print_endline (Bson.to_simple_json doc);
-  let system_indexes_m =
-    {
-    db_name = m.db_name;
-    collection_name = "system.indexes";
-    ip = m.ip;
-    port = m.port;
-    channels = m.channels ;
-    } in
-  insert system_indexes_m [doc];;
+
+  let has_name = ref false in
+  let has_version = ref false in
+  (* check all options *)
+
+  let main_bson =
+    List.fold_left (
+      fun acc o ->
+        match o with
+          | Background b ->
+            Bson.add_element "background" (Bson.create_boolean b) acc
+          | Unique b ->
+            Bson.add_element "unique" (Bson.create_boolean b) acc
+          | Name s ->
+            has_name := true;
+            Bson.add_element "name" (Bson.create_string s) acc
+          | DropDups b ->
+            Bson.add_element "dropDups" (Bson.create_boolean b) acc
+          | Sparse b ->
+            Bson.add_element "sparse" (Bson.create_boolean b) acc
+          | ExpireAfterSeconds i ->
+            Bson.add_element "expireAfterSeconds" (Bson.create_int32 (Int32.of_int i)) acc
+          | V i ->
+            if i <> 0 && i <> 1 then raise (Mongo_failed "Version number for index must be 0 or 1");
+            has_version := true;
+            Bson.add_element "v" (Bson.create_int32 (Int32.of_int i)) acc
+          | Weight bson ->
+            Bson.add_element "weights" (Bson.create_doc_element bson) acc
+          | Default_language s ->
+            Bson.add_element "default_language" (Bson.create_string s) acc
+          | Language_override s ->
+            Bson.add_element "language_override" (Bson.create_string s) acc
+    ) key_bson options
+  in
+
+  (* check if then name has been set, create a default name otherwise *)
+  let main_bson =
+    if !has_name = false then begin
+      Bson.add_element "name" (Bson.create_string (default_name ())) main_bson
+    end else main_bson
+  in
+
+  (* check if the version has been set, set 1 otherwise *)
+  let main_bson =
+    if !has_version = false then
+      Bson.add_element "v" (Bson.create_int32 1l) main_bson
+    else main_bson
+  in
+
+  let main_bson = Bson.add_element "ns" (Bson.create_string (m.db_name ^ "." ^ m.collection_name)) main_bson in
+  (* print_endline (Bson.to_simple_json main_bson); *)
+
+  let system_indexes_m = change_collection m "system.indexes" in
+
+  insert system_indexes_m [main_bson];;
+
+
+let ensure_simple_index ?(options=[]) m field =
+  let key_bson = Bson.add_element "key" (Bson.create_doc_element (Bson.add_element field (Bson.create_int32 1l) Bson.empty)) Bson.empty in
+  ensure_index m key_bson options
+
+let ensure_multi_simple_index ?(options=[]) m fields =
+  let key_bson =
+    List.fold_left (
+      fun acc f ->
+        Bson.add_element f (Bson.create_int32 1l) acc
+    ) Bson.empty fields
+  in
+
+  let key_bson = Bson.add_element "key" (Bson.create_doc_element key_bson) Bson.empty in
+  ensure_index m key_bson options
+
+let drop_index m index_name =
+  let index_bson = Bson.add_element "index" (Bson.create_string index_name) Bson.empty in
+  let delete_bson = Bson.add_element "deleteIndexes" (Bson.create_string m.collection_name) index_bson in
+  let m = change_collection m "$cmd" in
+  find_q m delete_bson
+
+let drop_all_index m =
+  drop_index m "*"

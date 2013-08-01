@@ -100,8 +100,30 @@ val kill_cursors: t -> int64 list -> unit;;
 
 (** {6 Index} *)
 
-(** ensure an index and force it to be unique *)
-val ensure_index: t -> string -> bool -> unit;;
+type option =
+  | Background of bool
+  | Unique of bool
+  | Name of string
+  | DropDups of bool
+  | Sparse of bool
+  | ExpireAfterSeconds of int
+  | V of int
+  | Weight of Bson.t
+  | Default_language of string
+  | Language_override of string
+
+
+(** ensure an index *)
+val ensure_index: t -> Bson.t -> option list -> unit;;
+(** ensure an index *)
+val ensure_simple_index: ?options: option list -> t -> string -> unit;;
+(** ensure multi-fields index *)
+val ensure_multi_simple_index : ?options: option list -> t -> string list -> unit;;
+(** drop a index *)
+val drop_index: t -> string -> MongoReply.t;;
+(** drop all index of a collection *)
+val drop_all_index: t -> MongoReply.t;;
+
 
 (** {6 Instance Administration Commands } *)
 val change_collection : t -> string -> t
@@ -109,7 +131,3 @@ val change_collection : t -> string -> t
 val drop_database: t -> MongoReply.t
 (** removes an entire collection from a database **)
 val drop_collection: t -> MongoReply.t
-
-(*
-(** simply remove an index *)
-val remove_index: t -> string -> unit;;*)
