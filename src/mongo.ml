@@ -203,7 +203,7 @@ let drop_index m index_name =
   let index_bson = Bson.add_element "index" (Bson.create_string index_name) Bson.empty in
   let delete_bson = Bson.add_element "deleteIndexes" (Bson.create_string m.collection_name) index_bson in
   let m = change_collection m "$cmd" in
-  find_q m delete_bson
+  find_q_one m delete_bson
 
 let drop_all_index m =
   drop_index m "*"
