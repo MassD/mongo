@@ -102,9 +102,8 @@ val kill_cursors: t -> int64 list -> unit Lwt.t;;
 
 (** {6 Index} *)
 
-val get_indexes: t -> MongoReply.t Lwt.t;;
-
-type option =
+(** option for index. See {b http://docs.mongodb.org/manual/reference/method/db.collection.ensureIndex/#db.collection.ensureIndex } for more info *)
+type index_option =
   | Background of bool
   | Unique of bool
   | Name of string
@@ -116,20 +115,31 @@ type option =
   | Default_language of string
   | Language_override of string
 
+(** return a list of all indexes *)
+val get_indexes: t -> MongoReply.t Lwt.t ;;
+
 (** ensure an index *)
-val ensure_index: t -> Bson.t -> option list -> unit Lwt.t;;
-(** ensure an index *)
-val ensure_simple_index: ?options: option list -> t -> string -> unit Lwt.t;;
-(** ensure multi-fields index **)
-val ensure_multi_simple_index : ?options: option list -> t -> string list -> unit Lwt.t;;
+val ensure_index: t -> Bson.t -> index_option list -> unit Lwt.t;;
+
+(** ensure an index (helper) *)
+val ensure_simple_index: ?options: index_option list -> t -> string -> unit Lwt.t;;
+
+(** ensure multi-fields index (helper) *)
+val ensure_multi_simple_index : ?options: index_option list -> t -> string list -> unit Lwt.t;;
+
 (** drop a index *)
 val drop_index: t -> string -> MongoReply.t Lwt.t;;
+
 (** drop all index of a collection *)
-val drop_all_index: t -> MongoReply.t Lwt.t ;;
+val drop_all_index: t -> MongoReply.t Lwt.t;;
 
 (** {6 Instance Administration Commands } *)
+
+(** change instance collection *)
 val change_collection : t -> string -> t;;
-(** drops a database, deleting the associated data files **)
-val drop_database: t -> MongoReply.t Lwt.t;;
-(** removes an entire collection from a database **)
+
+(** removes an entire collection from a database *)
 val drop_collection: t -> MongoReply.t Lwt.t;;
+
+(** drops a database, deleting the associated data files *)
+val drop_database: t -> MongoReply.t Lwt.t;;

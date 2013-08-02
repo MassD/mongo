@@ -102,7 +102,7 @@ let get_indexes m =
   let m_ = change_collection m "system.indexes" in
   find_q m_ (Bson.add_element "ns" (Bson.create_string (m.db_name ^ "." ^ m.collection_name)) Bson.empty)
 
-type option =
+type index_option =
   | Background of bool
   | Unique of bool
   | Name of string

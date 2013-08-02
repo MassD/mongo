@@ -24,3 +24,22 @@ Library mongo_lwt
   BuildTools: ocamlbuild
   Modules: Mongo_lwt,MongoAdmin_lwt,MongoSend_lwt
   BuildDepends: mongo,bson,lwt,lwt.syntax
+
+Document mongo
+  Title:                Mongo docs
+  Type:                 ocamlbuild (0.3)
+  BuildTools: ocamlbuild
+  BuildTools+:          ocamldoc
+  Install:		true
+  XOCamlbuildPath:      src
+  XOCamlbuildLibraries: mongo
+
+Document mongo_lwt
+  Title:                Mongo Lwt docs
+  Type:                 ocamlbuild (0.3)
+  BuildTools: ocamlbuild
+  BuildTools+:          ocamldoc
+  Build$:               flag(lwt)
+  Install:		true
+  XOCamlbuildPath:      lwt
+  XOCamlbuildLibraries: mongo.lwt
