@@ -8,20 +8,23 @@ type t =
       collection_name: string;
       ip: string;
       port: int;
-      channels : (Lwt_io.input_channel * Lwt_io.output_channel)
+      channel_pool : (Lwt_io.input_channel * Lwt_io.output_channel) Lwt_pool.t;
+      max_connection : int ;
     };;
 
 let get_db_name m = m.db_name;;
 let get_collection_name m = m.collection_name;;
 let get_ip m = m.ip;;
 let get_port m = m.port;;
-let get_channels m = m.channels;;
-let get_output_channel m =
-  let _,o = get_channels m in
-  o
-let get_input_channel m =
-  let i,_ = get_channels m in
-  i
+let get_channel_pool m = m.channel_pool;;
+(* let get_channels m = m.channels;; *)
+(* let get_output_channel m = *)
+(*   let _,o = get_channels m in *)
+(*   o *)
+
+(* let get_input_channel m = *)
+(*   let i,_ = get_channels m in *)
+(*   i *)
 
 let wrap_bson f arg =
   try (f arg) with
@@ -37,28 +40,49 @@ let connect_to (ip,port) =
   let s_addr = Lwt_unix.ADDR_INET (Unix.inet_addr_of_string ip,port) in
   Lwt_io.open_connection s_addr
 
-let create ip port db_name collection_name =
-  lwt channels = wrap_unix_lwt connect_to (ip,port) in
+let create ?(max_connection=10) ip port db_name collection_name =
+  let channel_pool = Lwt_pool.create max_connection (
+      fun _ ->
+        wrap_unix_lwt connect_to (ip,port)
+    )
+  in
+
   Lwt.return {
     db_name = db_name;
     collection_name = collection_name;
     ip = ip;
     port = port;
-    channels;
+    channel_pool ;
+    max_connection ;
   };;
 
 let create_local_default db_name collection_name =
   create "127.0.0.1" 27017 db_name collection_name;;
 
 let destory m =
-  let i,o = m.channels in
-  lwt _ = wrap_unix_lwt Lwt_io.close i in
-  wrap_unix_lwt Lwt_io.close o ;;
+  (* try to close all open channel *)
+  let close () =
+    Lwt_pool.use m.channel_pool (
+      fun (i,o) ->
+        lwt _ = wrap_unix_lwt Lwt_io.close i in
+        wrap_unix_lwt Lwt_io.close o
+    )
+    (* let i,o = m.channels in *)
+  in
+
+  let build_thread acc i =
+    if i = m.max_connection then acc
+    else (close ()::acc)
+  in
+
+  let ths = build_thread [] 0 in
+
+  Lwt.join ths
 
 let get_request_id = cur_timestamp;;
 
-let send_only (m, str) = MongoSend_lwt.send_no_reply m.channels str;;
-let send (m,str) = MongoSend_lwt.send_with_reply m.channels str;;
+let send_only (m, str) = MongoSend_lwt.send_no_reply m.channel_pool str;;
+let send (m,str) = MongoSend_lwt.send_with_reply m.channel_pool str;;
 
 let insert_in (m, flags, doc_list) = MongoRequest.create_insert (m.db_name, m.collection_name) (get_request_id(),flags) doc_list;;
 let insert m doc_list = wrap_unix_lwt send_only (m, wrap_bson insert_in (m, 0l, doc_list));;

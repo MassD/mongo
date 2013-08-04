@@ -22,14 +22,15 @@ val get_db_name: t -> string;;
 val get_collection_name: t -> string;;
 val get_ip: t -> string;;
 val get_port: t -> int;;
-val get_channels: t -> (Lwt_io.input_channel * Lwt_io.output_channel);;
-val get_output_channel: t -> Lwt_io.output_channel;;
-val get_input_channel: t -> Lwt_io.input_channel;;
+val get_channel_pool: t -> (Lwt_io.input_channel * Lwt_io.output_channel) Lwt_pool.t ;;
+(* val get_channels: t -> (Lwt_io.input_channel * Lwt_io.output_channel);; *)
+(* val get_output_channel: t -> Lwt_io.output_channel;; *)
+(* val get_input_channel: t -> Lwt_io.input_channel;; *)
 
 (** {6 Lifecycle of a Mongo} *)
 
 (** create a Mongo. {b please note that Mongo is bound to a db and a collection.} e.g. create ip port db_name collection_name. May raise Mongo_failed exception.*)
-val create: string -> int -> string -> string -> t Lwt.t;;
+val create: ?max_connection:int -> string -> int -> string -> string -> t Lwt.t;;
 
 (** create a Mongo connecting to 127.0.0.1, port 27017. e.g. create_local_default db_name collection_name. May raise Mongo_failed exception.*)
 val create_local_default: string -> string -> t Lwt.t;;
