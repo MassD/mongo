@@ -16,6 +16,10 @@ let get_collection_name m = m.collection_name;;
 let get_ip m = m.ip;;
 let get_port m = m.port;;
 let get_file_descr m = m.file_descr;;
+let change_collection m c =
+  { m with
+      collection_name = c ;
+  }
 
 let wrap_bson f arg =
   try (f arg) with
@@ -76,17 +80,32 @@ let find_q_s m q s = wrap_unix send (m, wrap_bson find_in (m, 0l, 0l, 0l, q, s))
 let find_q_s_one m q s = wrap_unix send (m, wrap_bson find_in (m, 0l, 0l, 1l, q, s));;
 let find_q_s_of_num m q s num = wrap_unix send (m, wrap_bson find_in (m, 0l, 0l, (Int32.of_int num), q, s));;
 
+let count ?skip ?limit ?(query=Bson.empty) m =
+  let c_bson = Bson.add_element "count" (Bson.create_string m.collection_name) Bson.empty in
+  let c_bson = Bson.add_element "query" (Bson.create_doc_element query) c_bson in
+  let c_bson =
+    match limit with
+      | Some n -> Bson.add_element "limit" (Bson.create_int32 (Int32.of_int n)) c_bson
+      | None -> c_bson
+  in
+  let c_bson =
+    match skip with
+      | Some n -> Bson.add_element "skip" (Bson.create_int32 (Int32.of_int n)) c_bson
+      | None -> c_bson
+  in
+
+  let m = change_collection m "$cmd" in
+  let r = find_q_one m c_bson in
+  let d = List.nth (MongoReply.get_document_list r) 0 in
+  int_of_float (Bson.get_double (Bson.get_element "n" d))
+
+
 let get_more_in (m, c, num) = MongoRequest.create_get_more (m.db_name, m.collection_name) (get_request_id(), Int32.of_int num) c;;
 let get_more_of_num m c num = wrap_unix send (m, wrap_bson get_more_in (m, c, num));;
 let get_more m c = get_more_of_num m c 0;;
 
 let kill_cursors_in c_list = MongoRequest.create_kill_cursors (get_request_id()) c_list;;
 let kill_cursors m c_list = wrap_unix send_only (m, wrap_bson kill_cursors_in c_list);;
-
-let change_collection m c =
-  { m with
-      collection_name = c ;
-  }
 
 let drop_database m =
   let m = change_collection m "$cmd" in

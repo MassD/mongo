@@ -88,6 +88,9 @@ val find_q_s_one: t -> Bson.t -> Bson.t -> MongoReply.t Lwt.t;;
 (** find {b the desired number} of documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.*)
 val find_q_s_of_num: t -> Bson.t -> Bson.t -> int -> MongoReply.t Lwt.t;;
 
+(** counts the number of documents in a collection *)
+val count: ?skip:int -> ?limit:int -> ?query: Bson.t -> t -> int Lwt.t
+
 (** {6 Query / Find more via cursor} *)
 
 (** get {b the desired number} of documents via a cursor_id. e.g. get_more_of_num m cursor_id num. May raise Mongo_failed exception.*)

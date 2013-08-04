@@ -3,28 +3,24 @@ open MongoUtils;;
 exception Mongo_failed of string;;
 
 type t =
-    {
-      db_name: string;
-      collection_name: string;
-      ip: string;
-      port: int;
-      channel_pool : (Lwt_io.input_channel * Lwt_io.output_channel) Lwt_pool.t;
-      max_connection : int ;
-    };;
+  {
+    db_name: string;
+    collection_name: string;
+    ip: string;
+    port: int;
+    channel_pool : (Lwt_io.input_channel * Lwt_io.output_channel) Lwt_pool.t;
+    max_connection : int ;
+  };;
 
 let get_db_name m = m.db_name;;
 let get_collection_name m = m.collection_name;;
 let get_ip m = m.ip;;
 let get_port m = m.port;;
 let get_channel_pool m = m.channel_pool;;
-(* let get_channels m = m.channels;; *)
-(* let get_output_channel m = *)
-(*   let _,o = get_channels m in *)
-(*   o *)
-
-(* let get_input_channel m = *)
-(*   let i,_ = get_channels m in *)
-(*   i *)
+let change_collection m c =
+  { m with
+      collection_name = c ;
+  }
 
 let wrap_bson f arg =
   try (f arg) with
@@ -107,17 +103,32 @@ let find_q_s m q s = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, 0l, q,
 let find_q_s_one m q s = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, 1l, q, s));;
 let find_q_s_of_num m q s num = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, (Int32.of_int num), q, s));;
 
+let count ?skip ?limit ?(query=Bson.empty) m =
+  let c_bson = Bson.add_element "count" (Bson.create_string m.collection_name) Bson.empty in
+  let c_bson = Bson.add_element "query" (Bson.create_doc_element query) c_bson in
+  let c_bson =
+    match limit with
+      | Some n -> Bson.add_element "limit" (Bson.create_int32 (Int32.of_int n)) c_bson
+      | None -> c_bson
+  in
+  let c_bson =
+    match skip with
+      | Some n -> Bson.add_element "skip" (Bson.create_int32 (Int32.of_int n)) c_bson
+      | None -> c_bson
+  in
+
+  let m = change_collection m "$cmd" in
+  lwt r = find_q_one m c_bson in
+  let d = List.nth (MongoReply.get_document_list r) 0 in
+  Lwt.return (int_of_float (Bson.get_double (Bson.get_element "n" d)))
+
+
 let get_more_in (m, c, num) = MongoRequest.create_get_more (m.db_name, m.collection_name) (get_request_id(), Int32.of_int num) c;;
 let get_more_of_num m c num = wrap_unix_lwt send (m, wrap_bson get_more_in (m, c, num));;
 let get_more m c = get_more_of_num m c 0;;
 
 let kill_cursors_in c_list = MongoRequest.create_kill_cursors (get_request_id()) c_list;;
 let kill_cursors m c_list = wrap_unix_lwt send_only (m, wrap_bson kill_cursors_in c_list);;
-
-let change_collection m c =
-  { m with
-      collection_name = c ;
-  }
 
 let drop_database m =
   let m = change_collection m "$cmd" in
@@ -235,6 +246,7 @@ let drop_index m index_name =
   let delete_bson = Bson.add_element "deleteIndexes" (Bson.create_string m.collection_name) index_bson in
   let m = change_collection m "$cmd" in
   find_q_one m delete_bson
+
 
 let drop_all_index m =
   drop_index m "*"
