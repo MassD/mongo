@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="MongoAdmin.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Mongo" rel="Chapter" href="Mongo.html">
+<link title="MongoAdmin" rel="Chapter" href="MongoAdmin.html">
+<link title="MongoHeader" rel="Chapter" href="MongoHeader.html">
+<link title="MongoOperation" rel="Chapter" href="MongoOperation.html">
+<link title="MongoReply" rel="Chapter" href="MongoReply.html">
+<link title="MongoRequest" rel="Chapter" href="MongoRequest.html">
+<link title="MongoSend" rel="Chapter" href="MongoSend.html">
+<link title="MongoUtils" rel="Chapter" href="MongoUtils.html">
+<link title="MongoMetaOp" rel="Chapter" href="MongoMetaOp.html"><link title="Essential info of a Mongo" rel="Section" href="#6_EssentialinfoofaMongo">
+<link title="Lifecycle of a Mongo" rel="Section" href="#6_LifecycleofaMongo">
+<link title="Insert" rel="Section" href="#6_Insert">
+<link title="Update" rel="Section" href="#6_Update">
+<link title="Delete" rel="Section" href="#6_Delete">
+<link title="Query / Find" rel="Section" href="#6_QueryFind">
+<link title="Query / Find more via cursor" rel="Section" href="#6_QueryFindmoreviacursor">
+<link title="Kill cursor" rel="Section" href="#6_Killcursor">
+<link title="Index" rel="Section" href="#6_Index">
+<link title="Instance Administration Commands " rel="Section" href="#6_InstanceAdministrationCommands">
+<title>Mongo</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="MongoAdmin.html" title="MongoAdmin">Next</a>
+</div>
+<h1>Module <a href="type_Mongo.html">Mongo</a></h1>
+<pre><span class="keyword">module</span> Mongo: <code class="code">sig</code> <a href="Mongo.html">..</a> <code class="code">end</code></pre><div class="info">
+<b>This is a major client-faced module, for the high level usage.</b>
+<p>
+
+   This module includes a series of APIs that client can use directly to communicate with MongoDB. The most important functions are for insert, udpate, delete, query, get_more. They are the essential interactions that a client can have with MongoDB.
+<p>
+
+   Please note that the current version of APIs here are all essential only. For example, Clients cannot set detailed flags for queries, etc. All operations here are with default flags (which is 0).
+<p>
+
+   A Mongo is bound to a db and a collection. All operations will be done upon the bound db and collection only.
+<p>
+
+   Please refer to <a href=" http://docs.mongodb.org/meta-driver/latest/legacy/mongodb-wire-protocol/ "> MongoDB Wire Protocol </a> for more information<br>
+</div>
+<hr width="100%">
+<pre><span id="EXCEPTIONMongo_failed"><span class="keyword">exception</span> Mongo_failed</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info">
+the exception will be raised if anything is wrong, with a string message<br>
+</div>
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info">
+the type for Mongo<br>
+</div>
+
+<br>
+<h6 id="6_EssentialinfoofaMongo">Essential info of a Mongo</h6><br>
+<pre><span id="VALget_db_name"><span class="keyword">val</span> get_db_name</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> string</code></pre><pre><span id="VALget_collection_name"><span class="keyword">val</span> get_collection_name</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> string</code></pre><pre><span id="VALget_ip"><span class="keyword">val</span> get_ip</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> string</code></pre><pre><span id="VALget_port"><span class="keyword">val</span> get_port</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> int</code></pre><pre><span id="VALget_file_descr"><span class="keyword">val</span> get_file_descr</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Unix.file_descr</code></pre><br>
+<h6 id="6_LifecycleofaMongo">Lifecycle of a Mongo</h6><br>
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">string -> int -> string -> string -> <a href="Mongo.html#TYPEt">t</a></code></pre><div class="info">
+create a Mongo. <b>please note that Mongo is bound to a db and a collection.</b> e.g. create ip port db_name collection_name. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALcreate_local_default"><span class="keyword">val</span> create_local_default</span> : <code class="type">string -> string -> <a href="Mongo.html#TYPEt">t</a></code></pre><div class="info">
+create a Mongo connecting to 127.0.0.1, port 27017. e.g. create_local_default db_name collection_name. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALdestory"><span class="keyword">val</span> destory</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> unit</code></pre><div class="info">
+destory a Mongo. Please use this to destory a Mongo once it finishes its purpose, in order to release system resources. May raise Mongo_failed exception.<br>
+</div>
+<br>
+<h6 id="6_Insert">Insert</h6><br>
+<pre><span id="VALinsert"><span class="keyword">val</span> insert</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t list -> unit</code></pre><div class="info">
+insert a list of bson documents into MongoDB. May raise Mongo_failed exception.<br>
+</div>
+<br>
+<h6 id="6_Update">Update</h6><br>
+<pre><span id="VALupdate_one"><span class="keyword">val</span> update_one</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t * Bson.t -> unit</code></pre><div class="info">
+update the <b>first document</b> matched in MongoDB. e.g., update_one m (s, u);; m is the Mongo. s is the selector document, used to match the documents that need to be updated. u is the update document and any matched documents will be updated to u. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALupdate_all"><span class="keyword">val</span> update_all</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t * Bson.t -> unit</code></pre><div class="info">
+update <b>all documents</b> matched in MongoDB. e.g., update m (s, u);; m is the Mongo. s is the selector document, used to match the documents that need to be updated. u is the update document and any matched documents will be updated to u. May raise Mongo_failed exception.<br>
+</div>
+<br>
+<h6 id="6_Delete">Delete</h6><br>
+<pre><span id="VALdelete_one"><span class="keyword">val</span> delete_one</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> unit</code></pre><div class="info">
+delete the <b>first document</b> matched in MongoDB. e.g., delete_one m s;; m is the Mongo. s is the selector document, used to match the documents that need to be deleted. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALdelete_all"><span class="keyword">val</span> delete_all</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> unit</code></pre><div class="info">
+delete the <b>all documents</b> matched in MongoDB. e.g., delete_one m s;; m is the Mongo. s is the selector document, used to match the documents that need to be deleted. May raise Mongo_failed exception.<br>
+</div>
+<br>
+<h6 id="6_QueryFind">Query / Find</h6><br>
+<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+find <b>all / the default number</b> of documents in the db and collection. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALfind_one"><span class="keyword">val</span> find_one</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+find <b>the first</b> document in the db and collection. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALfind_of_num"><span class="keyword">val</span> find_of_num</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+find <b>the desired number</b> of documents in the db and collection. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALfind_q"><span class="keyword">val</span> find_q</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+find <b>all / the default number</b> of documents in the db and collection matching the bson query. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALfind_q_one"><span class="keyword">val</span> find_q_one</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+find <b>the first</b> document in the db and collection matching the bson query. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALfind_q_of_num"><span class="keyword">val</span> find_q_of_num</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+find <b>the desired number</b> of documents in the db and collection matching the bson query. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALfind_q_s"><span class="keyword">val</span> find_q_s</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+find <b>all / the default number</b> of documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALfind_q_s_one"><span class="keyword">val</span> find_q_s_one</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+find <b>the first</b> documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALfind_q_s_of_num"><span class="keyword">val</span> find_q_s_of_num</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> Bson.t -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+find <b>the desired number</b> of documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.<br>
+</div>
+<br>
+<h6 id="6_QueryFindmoreviacursor">Query / Find more via cursor</h6><br>
+<pre><span id="VALget_more_of_num"><span class="keyword">val</span> get_more_of_num</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> int64 -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+get <b>the desired number</b> of documents via a cursor_id. e.g. get_more_of_num m cursor_id num. May raise Mongo_failed exception.<br>
+</div>
+<pre><span id="VALget_more"><span class="keyword">val</span> get_more</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> int64 -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+get <b>all / the default number</b> of documents via a cursor_id. e.g. get_more_of_num m cursor_id num. May raise Mongo_failed exception.<br>
+</div>
+<br>
+<h6 id="6_Killcursor">Kill cursor</h6><br>
+<pre><span id="VALkill_cursors"><span class="keyword">val</span> kill_cursors</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> int64 list -> unit</code></pre><div class="info">
+kill a list of cursors, to save MongoDB resources. e.g., kill_cursors m cursor_list. May raise Mongo_failed exception.<br>
+</div>
+<br>
+<h6 id="6_Index">Index</h6><br>
+<pre><code><span id="TYPEindex_option"><span class="keyword">type</span> <code class="type"></code>index_option</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.Background"><span class="constructor">Background</span></span> <span class="keyword">of</span> <code class="type">bool</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.Unique"><span class="constructor">Unique</span></span> <span class="keyword">of</span> <code class="type">bool</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.Name"><span class="constructor">Name</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.DropDups"><span class="constructor">DropDups</span></span> <span class="keyword">of</span> <code class="type">bool</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.Sparse"><span class="constructor">Sparse</span></span> <span class="keyword">of</span> <code class="type">bool</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.ExpireAfterSeconds"><span class="constructor">ExpireAfterSeconds</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.V"><span class="constructor">V</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.Weight"><span class="constructor">Weight</span></span> <span class="keyword">of</span> <code class="type">Bson.t</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.Default_language"><span class="constructor">Default_language</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTindex_option.Language_override"><span class="constructor">Language_override</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+<div class="info">
+option for index. See <b>http://docs.mongodb.org/manual/reference/method/db.collection.ensureIndex/#db.collection.ensureIndex </b> for more info<br>
+</div>
+
+<pre><span id="VALget_indexes"><span class="keyword">val</span> get_indexes</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+return a list of all indexes<br>
+</div>
+<pre><span id="VALensure_index"><span class="keyword">val</span> ensure_index</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> <a href="Mongo.html#TYPEindex_option">index_option</a> list -> unit</code></pre><div class="info">
+ensure an index<br>
+</div>
+<pre><span id="VALensure_simple_index"><span class="keyword">val</span> ensure_simple_index</span> : <code class="type">?options:<a href="Mongo.html#TYPEindex_option">index_option</a> list -> <a href="Mongo.html#TYPEt">t</a> -> string -> unit</code></pre><div class="info">
+ensure an index (helper)<br>
+</div>
+<pre><span id="VALensure_multi_simple_index"><span class="keyword">val</span> ensure_multi_simple_index</span> : <code class="type">?options:<a href="Mongo.html#TYPEindex_option">index_option</a> list -> <a href="Mongo.html#TYPEt">t</a> -> string list -> unit</code></pre><div class="info">
+ensure multi-fields index (helper)<br>
+</div>
+<pre><span id="VALdrop_index"><span class="keyword">val</span> drop_index</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> string -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+drop a index<br>
+</div>
+<pre><span id="VALdrop_all_index"><span class="keyword">val</span> drop_all_index</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+drop all index of a collection<br>
+</div>
+<br>
+<h6 id="6_InstanceAdministrationCommands">Instance Administration Commands </h6><br>
+<pre><span id="VALchange_collection"><span class="keyword">val</span> change_collection</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> string -> <a href="Mongo.html#TYPEt">t</a></code></pre><div class="info">
+change instance collection<br>
+</div>
+<pre><span id="VALdrop_collection"><span class="keyword">val</span> drop_collection</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+removes an entire collection from a database<br>
+</div>
+<pre><span id="VALdrop_database"><span class="keyword">val</span> drop_database</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+drops a database, deleting the associated data files<br>
+</div>
+</body></html>

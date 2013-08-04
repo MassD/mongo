@@ -1,0 +1,70 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Mongo" rel="Chapter" href="Mongo.html">
+<link title="MongoAdmin" rel="Chapter" href="MongoAdmin.html">
+<link title="MongoHeader" rel="Chapter" href="MongoHeader.html">
+<link title="MongoOperation" rel="Chapter" href="MongoOperation.html">
+<link title="MongoReply" rel="Chapter" href="MongoReply.html">
+<link title="MongoRequest" rel="Chapter" href="MongoRequest.html">
+<link title="MongoSend" rel="Chapter" href="MongoSend.html">
+<link title="MongoUtils" rel="Chapter" href="MongoUtils.html">
+<link title="MongoMetaOp" rel="Chapter" href="MongoMetaOp.html"><title>Mongo</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Mongo_failed</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_db_name&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_collection_name&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_ip&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_port&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_file_descr&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Unix</span>.file_descr<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;create&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Mongo</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;create_local_default&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Mongo</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;destory&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;insert&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;update_one&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;*&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;update_all&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;*&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;delete_one&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;delete_all&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find_one&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find_of_num&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find_q&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find_q_one&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find_q_of_num&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find_q_s&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find_q_s_one&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find_q_s_of_num&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_more_of_num&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int64&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_more&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int64&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;kill_cursors&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int64&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;index_option&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Background</span>&nbsp;<span class="keyword">of</span>&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Unique</span>&nbsp;<span class="keyword">of</span>&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Name</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DropDups</span>&nbsp;<span class="keyword">of</span>&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Sparse</span>&nbsp;<span class="keyword">of</span>&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ExpireAfterSeconds</span>&nbsp;<span class="keyword">of</span>&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">V</span>&nbsp;<span class="keyword">of</span>&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Weight</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Bson</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Default_language</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Language_override</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_indexes&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ensure_index&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bson</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Mongo</span>.index_option&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ensure_simple_index&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?options:<span class="constructor">Mongo</span>.index_option&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ensure_multi_simple_index&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?options:<span class="constructor">Mongo</span>.index_option&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;drop_index&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;drop_all_index&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;change_collection&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Mongo</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;drop_collection&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;drop_database&nbsp;:&nbsp;<span class="constructor">Mongo</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">MongoReply</span>.t<br>
+<span class="keyword">end</span></code></body></html>

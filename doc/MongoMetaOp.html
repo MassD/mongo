@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="MongoUtils.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Mongo" rel="Chapter" href="Mongo.html">
+<link title="MongoAdmin" rel="Chapter" href="MongoAdmin.html">
+<link title="MongoHeader" rel="Chapter" href="MongoHeader.html">
+<link title="MongoOperation" rel="Chapter" href="MongoOperation.html">
+<link title="MongoReply" rel="Chapter" href="MongoReply.html">
+<link title="MongoRequest" rel="Chapter" href="MongoRequest.html">
+<link title="MongoSend" rel="Chapter" href="MongoSend.html">
+<link title="MongoUtils" rel="Chapter" href="MongoUtils.html">
+<link title="MongoMetaOp" rel="Chapter" href="MongoMetaOp.html"><title>MongoMetaOp</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="MongoUtils.html" title="MongoUtils">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_MongoMetaOp.html">MongoMetaOp</a></h1>
+<pre><span class="keyword">module</span> MongoMetaOp: <code class="code">sig</code> <a href="MongoMetaOp.html">..</a> <code class="code">end</code></pre><div class="info">
+<b>Meta-Query Operators. </b> see http://docs.mongodb.org/manual/reference/operator/ for mor information<br>
+</div>
+<hr width="100%">
+<pre><span id="VALcomment"><span class="keyword">val</span> comment</span> : <code class="type">string -> Bson.t -> Bson.t</code></pre><div class="info">
+Attach a comment to a query<br>
+</div>
+<pre><span id="VALmaxScan"><span class="keyword">val</span> maxScan</span> : <code class="type">int -> Bson.t -> Bson.t</code></pre><div class="info">
+Constrains the query to only scan the specified number of documents when fulfilling the query
+   Note: Contrary to what the official documentation say, it doesn't limit the number of documents a cursor will return for a query but limit the number of document the query will scan<br>
+</div>
+<pre><span id="VALmax"><span class="keyword">val</span> max</span> : <code class="type">Bson.t -> Bson.t -> Bson.t</code></pre><div class="info">
+Specify the exclusive upper bound for a specific index in order to constrain the results of a query<br>
+</div>
+<pre><span id="VALmin"><span class="keyword">val</span> min</span> : <code class="type">Bson.t -> Bson.t -> Bson.t</code></pre><div class="info">
+specify the inclusive lower bound for a specific index in order to constrain the results of a query<br>
+</div>
+<pre><span id="VALorderBy"><span class="keyword">val</span> orderBy</span> : <code class="type">Bson.t -> Bson.t -> Bson.t</code></pre><div class="info">
+Sorts the results of a query<br>
+</div>
+<pre><span id="VALexplain"><span class="keyword">val</span> explain</span> : <code class="type">Bson.t -> Bson.t</code></pre><div class="info">
+Provides information on the query plan<br>
+</div>
+<pre><span id="VALhint"><span class="keyword">val</span> hint</span> : <code class="type">Bson.t -> Bson.t -> Bson.t</code></pre><div class="info">
+Forces the query optimizer to use a specific index to fulfill the query<br>
+</div>
+<pre><span id="VALreturnKey"><span class="keyword">val</span> returnKey</span> : <code class="type">Bson.t -> Bson.t</code></pre><div class="info">
+Only return the index field or fields for the results of the query<br>
+</div>
+<pre><span id="VALshowDiskLoc"><span class="keyword">val</span> showDiskLoc</span> : <code class="type">Bson.t -> Bson.t</code></pre><div class="info">
+Adds a field $diskLoc to the returned documents. The $diskLoc field contains the disk location information<br>
+</div>
+<pre><span id="VALsnapshot"><span class="keyword">val</span> snapshot</span> : <code class="type">Bson.t -> Bson.t</code></pre><div class="info">
+Prevents the cursor from returning a document more than once because an intervening write operation results in a move of the document<br>
+</div>
+</body></html>

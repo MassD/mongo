@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="MongoHeader.html">
+<link rel="next" href="MongoReply.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Mongo" rel="Chapter" href="Mongo.html">
+<link title="MongoAdmin" rel="Chapter" href="MongoAdmin.html">
+<link title="MongoHeader" rel="Chapter" href="MongoHeader.html">
+<link title="MongoOperation" rel="Chapter" href="MongoOperation.html">
+<link title="MongoReply" rel="Chapter" href="MongoReply.html">
+<link title="MongoRequest" rel="Chapter" href="MongoRequest.html">
+<link title="MongoSend" rel="Chapter" href="MongoSend.html">
+<link title="MongoUtils" rel="Chapter" href="MongoUtils.html">
+<link title="MongoMetaOp" rel="Chapter" href="MongoMetaOp.html"><link title="Convert between operation and int32 code" rel="Section" href="#6_Convertbetweenoperationandint32code">
+<title>MongoOperation</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="MongoHeader.html" title="MongoHeader">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="MongoReply.html" title="MongoReply">Next</a>
+</div>
+<h1>Module <a href="type_MongoOperation.html">MongoOperation</a></h1>
+<pre><span class="keyword">module</span> MongoOperation: <code class="code">sig</code> <a href="MongoOperation.html">..</a> <code class="code">end</code></pre><div class="info">
+This module defines the types of operation that are used in MongoDB requests and replies.<br>
+</div>
+<hr width="100%">
+<pre><span id="EXCEPTIONUnknown_op_code"><span class="keyword">exception</span> Unknown_op_code</span></pre>
+<div class="info">
+Raised when dealing with an unknown operation code<br>
+</div>
+<pre><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.OP_REPLY"><span class="constructor">OP_REPLY</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.OP_UPDATE"><span class="constructor">OP_UPDATE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.OP_INSERT"><span class="constructor">OP_INSERT</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.RESERVED"><span class="constructor">RESERVED</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.OP_QUERY"><span class="constructor">OP_QUERY</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.OP_GET_MORE"><span class="constructor">OP_GET_MORE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.OP_DELETE"><span class="constructor">OP_DELETE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.OP_KILL_CURSORS"><span class="constructor">OP_KILL_CURSORS</span></span></code></td>
+
+</tr></table>
+
+<div class="info">
+type of operations allowed in MongoDB<br>
+</div>
+
+<br>
+<h6 id="6_Convertbetweenoperationandint32code">Convert between operation and int32 code</h6><br>
+<pre><span id="VALto_code"><span class="keyword">val</span> to_code</span> : <code class="type"><a href="MongoOperation.html#TYPEt">t</a> -> int32</code></pre><div class="info">
+convert an operation to an int32<br>
+</div>
+<pre><span id="VALof_code"><span class="keyword">val</span> of_code</span> : <code class="type">int32 -> <a href="MongoOperation.html#TYPEt">t</a></code></pre><div class="info">
+convert an int32 to an operation, Unknwon_op_code will be raised if the code cannot be recognised<br>
+</div>
+</body></html>
