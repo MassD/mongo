@@ -9,6 +9,11 @@ lwt: setup.data.lwt
 test: setup.data build
 	ocamlbuild -use-ocamlfind -I src test/test_mongo.native
 
+doc: setup.data build
+	ocaml setup.ml -doc
+	cp -r _build/src/mongo.docdir/ doc
+	cp -r _build/lwt/mongo_lwt.docdir/ doc_lwt
+
 all:
 	$(SETUP) -all $(ALLFLAGS)
 

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Mongo_lwt.html">
+<link rel="next" href="MongoSend_lwt.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Mongo_lwt" rel="Chapter" href="Mongo_lwt.html">
+<link title="MongoAdmin_lwt" rel="Chapter" href="MongoAdmin_lwt.html">
+<link title="MongoSend_lwt" rel="Chapter" href="MongoSend_lwt.html"><link title="Essential info of a MongoAdmin" rel="Section" href="#6_EssentialinfoofaMongoAdmin">
+<link title="Lifecycle of a MongoAdmin" rel="Section" href="#6_LifecycleofaMongoAdmin">
+<link title="Commands via a MongoAdmin, may raise MongoAdmin_failed exception." rel="Section" href="#6_CommandsviaaMongoAdminmayraiseMongoAdminfailedexception">
+<title>MongoAdmin_lwt</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Mongo_lwt.html" title="Mongo_lwt">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="MongoSend_lwt.html" title="MongoSend_lwt">Next</a>
+</div>
+<h1>Module <a href="type_MongoAdmin_lwt.html">MongoAdmin_lwt</a></h1>
+<pre><span class="keyword">module</span> MongoAdmin_lwt: <code class="code">sig</code> <a href="MongoAdmin_lwt.html">..</a> <code class="code">end</code></pre><div class="info">
+<b>This is a major client-faced module, for the high level usage.</b>
+<p>
+
+   This module includes a series of APIs that client can use directly to obtain some admin level of information about a MongoDB, e.g., the list of databases inside, etc.
+   Currently all commands are read-only ones, which means they are just retrieving infomation from MongoDB, not setting any configurations.
+<p>
+
+   Please refer to <a href=" http://docs.mongodb.org/manual/reference/command/ "> MongoDB Commands </a> for more information<br>
+</div>
+<hr width="100%">
+<pre><span id="EXCEPTIONMongoAdmin_failed"><span class="keyword">exception</span> MongoAdmin_failed</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info">
+the exception will be raised if anything is wrong, with a string message<br>
+</div>
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info">
+the type for MongoAdmin<br>
+</div>
+
+<br>
+<h6 id="6_EssentialinfoofaMongoAdmin">Essential info of a MongoAdmin</h6><br>
+<pre><span id="VALget_db_name"><span class="keyword">val</span> get_db_name</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> string</code></pre><pre><span id="VALget_collection_name"><span class="keyword">val</span> get_collection_name</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> string</code></pre><pre><span id="VALget_ip"><span class="keyword">val</span> get_ip</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> string</code></pre><pre><span id="VALget_port"><span class="keyword">val</span> get_port</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> int</code></pre><pre><span id="VALget_channel_pool"><span class="keyword">val</span> get_channel_pool</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> (Lwt_io.input_channel * Lwt_io.output_channel) Lwt_pool.t</code></pre><br>
+<h6 id="6_LifecycleofaMongoAdmin">Lifecycle of a MongoAdmin</h6><br>
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">?max_connection:int -> string -> int -> <a href="MongoAdmin_lwt.html#TYPEt">t</a> Lwt.t</code></pre><div class="info">
+create a MongoAdmin. e.g. create ip port. May raise MongoAdmin_failed exception.<br>
+</div>
+<pre><span id="VALcreate_local_default"><span class="keyword">val</span> create_local_default</span> : <code class="type">unit -> <a href="MongoAdmin_lwt.html#TYPEt">t</a> Lwt.t</code></pre><div class="info">
+create a MongoAdmin connecting to 127.0.0.1, port 27017. May raise MongoAdmin_failed exception.<br>
+</div>
+<pre><span id="VALdestory"><span class="keyword">val</span> destory</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> unit Lwt.t</code></pre><div class="info">
+destory a MongoAdmin. Please use this to destory a MongoAdmin once it finishes its purpose, in order to release system resources. May raise MongoAdmin_failed exception.<br>
+</div>
+<br>
+<h6 id="6_CommandsviaaMongoAdminmayraiseMongoAdminfailedexception">Commands via a MongoAdmin, may raise MongoAdmin_failed exception.</h6><br>
+<pre><span id="VALlistDatabases"><span class="keyword">val</span> listDatabases</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> MongoReply.t Lwt.t</code></pre><pre><span id="VALbuildInfo"><span class="keyword">val</span> buildInfo</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> MongoReply.t Lwt.t</code></pre><pre><span id="VALcollStats"><span class="keyword">val</span> collStats</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> MongoReply.t Lwt.t</code></pre><pre><span id="VALconnPoolStats"><span class="keyword">val</span> connPoolStats</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> MongoReply.t Lwt.t</code></pre><pre><span id="VALcursorInfo"><span class="keyword">val</span> cursorInfo</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> MongoReply.t Lwt.t</code></pre><pre><span id="VALgetCmdLineOpts"><span class="keyword">val</span> getCmdLineOpts</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> MongoReply.t Lwt.t</code></pre><pre><span id="VALhostInfo"><span class="keyword">val</span> hostInfo</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> MongoReply.t Lwt.t</code></pre><pre><span id="VALlistCommands"><span class="keyword">val</span> listCommands</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> MongoReply.t Lwt.t</code></pre><pre><span id="VALserverStatus"><span class="keyword">val</span> serverStatus</span> : <code class="type"><a href="MongoAdmin_lwt.html#TYPEt">t</a> -> MongoReply.t Lwt.t</code></pre></body></html>

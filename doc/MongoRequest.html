@@ -11,15 +11,15 @@
 <link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Bson" rel="Chapter" href="Bson.html">
+<link title="Mongo" rel="Chapter" href="Mongo.html">
 <link title="MongoAdmin" rel="Chapter" href="MongoAdmin.html">
 <link title="MongoHeader" rel="Chapter" href="MongoHeader.html">
-<link title="Mongo" rel="Chapter" href="Mongo.html">
 <link title="MongoOperation" rel="Chapter" href="MongoOperation.html">
 <link title="MongoReply" rel="Chapter" href="MongoReply.html">
 <link title="MongoRequest" rel="Chapter" href="MongoRequest.html">
 <link title="MongoSend" rel="Chapter" href="MongoSend.html">
-<link title="MongoUtils" rel="Chapter" href="MongoUtils.html"><title>MongoRequest</title>
+<link title="MongoUtils" rel="Chapter" href="MongoUtils.html">
+<link title="MongoMetaOp" rel="Chapter" href="MongoMetaOp.html"><title>MongoRequest</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="MongoReply.html" title="MongoReply">Previous</a>
@@ -33,16 +33,16 @@ This module create request string that can be sent to MongoDB.
    Tuples are used as parameters, just to group similar parameters together, better for reading.<br>
 </div>
 <hr width="100%">
-<pre><span id="VALcreate_insert"><span class="keyword">val</span> create_insert</span> : <code class="type">string * string -> int32 * int32 -> <a href="Bson.html#TYPEt">Bson.t</a> list -> string</code></pre><div class="info">
+<pre><span id="VALcreate_insert"><span class="keyword">val</span> create_insert</span> : <code class="type">string * string -> int32 * int32 -> Bson.t list -> string</code></pre><div class="info">
 create an insert request. e.g. create_insert (db_name,collection_name) (request_id,flags) insert_doc_list<br>
 </div>
-<pre><span id="VALcreate_update"><span class="keyword">val</span> create_update</span> : <code class="type">string * string -> int32 * int32 -> <a href="Bson.html#TYPEt">Bson.t</a> * <a href="Bson.html#TYPEt">Bson.t</a> -> string</code></pre><div class="info">
+<pre><span id="VALcreate_update"><span class="keyword">val</span> create_update</span> : <code class="type">string * string -> int32 * int32 -> Bson.t * Bson.t -> string</code></pre><div class="info">
 create an update request. e.g. create_update (db_name,collection_name) (request_id,flags) (selector_doc,update_doc)<br>
 </div>
-<pre><span id="VALcreate_delete"><span class="keyword">val</span> create_delete</span> : <code class="type">string * string -> int32 * int32 -> <a href="Bson.html#TYPEt">Bson.t</a> -> string</code></pre><div class="info">
+<pre><span id="VALcreate_delete"><span class="keyword">val</span> create_delete</span> : <code class="type">string * string -> int32 * int32 -> Bson.t -> string</code></pre><div class="info">
 create a delete reuqest. e.g. create_delete (db_name,collection_name) (request_id,flags) selector_doc<br>
 </div>
-<pre><span id="VALcreate_query"><span class="keyword">val</span> create_query</span> : <code class="type">string * string -> int32 * int32 * int32 * int32 -> <a href="Bson.html#TYPEt">Bson.t</a> * <a href="Bson.html#TYPEt">Bson.t</a> -> string</code></pre><div class="info">
+<pre><span id="VALcreate_query"><span class="keyword">val</span> create_query</span> : <code class="type">string * string -> int32 * int32 * int32 * int32 -> Bson.t * Bson.t -> string</code></pre><div class="info">
 create a query request. e.g. create_query (db_name,collection_name) (request_id,flags,skip,return) (query_doc,selector_doc)<br>
 </div>
 <pre><span id="VALcreate_get_more"><span class="keyword">val</span> create_get_more</span> : <code class="type">string * string -> int32 * int32 -> int64 -> string</code></pre><div class="info">

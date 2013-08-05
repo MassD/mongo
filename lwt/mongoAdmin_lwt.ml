@@ -13,9 +13,10 @@ let get_db_name = Mongo_lwt.get_db_name;;
 let get_collection_name = Mongo_lwt.get_collection_name;;
 let get_ip = Mongo_lwt.get_ip;;
 let get_port = Mongo_lwt.get_port;;
-let get_channels = Mongo_lwt.get_channels;;
-let get_output_channel = Mongo_lwt.get_output_channel;;
-let get_input_channel = Mongo_lwt.get_input_channel;;
+let get_channel_pool = Mongo_lwt.get_channel_pool ;;
+(* let get_channels = Mongo_lwt.get_channels;; *)
+(* let get_output_channel = Mongo_lwt.get_output_channel;; *)
+(* let get_input_channel = Mongo_lwt.get_input_channel;; *)
 
 let wrap_bson f arg =
   try (f arg) with
@@ -27,7 +28,7 @@ let wrap_unix_lwt f arg =
   try_lwt (f arg) with
     | Unix.Unix_error (e, _, _) -> raise (MongoAdmin_failed (Unix.error_message e));;
 
-let create ip port  = Mongo_lwt.create ip port admin_db_name admin_collection_name;;
+let create ?max_connection ip port = Mongo_lwt.create ?max_connection ip port admin_db_name admin_collection_name;;
 let create_local_default () = create "127.0.0.1" 27017;;
 
 let destory a = Mongo_lwt.destory a;;
@@ -45,7 +46,7 @@ let create_cmd name =
       wrap_bson find_in (0l, 0l, (-1l), (cmd_doc name), Bson.empty)
   }
 
-let send_cmd (a,cmd) = MongoSend_lwt.send_with_reply (Mongo_lwt.get_channels a) cmd.query;;
+let send_cmd (a,cmd) = MongoSend_lwt.send_with_reply (Mongo_lwt.get_channel_pool a) cmd.query;;
 
 let listDatabases a = wrap_unix_lwt send_cmd (a, create_cmd "listDatabases");;
 let buildInfo a = wrap_unix_lwt send_cmd (a, create_cmd "buildInfo");;

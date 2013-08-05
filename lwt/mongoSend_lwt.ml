@@ -1,8 +1,13 @@
 open MongoUtils;;
 
-let send_no_reply (_,out_ch) request_str =
+let send_no_reply_ (_,out_ch) request_str =
   lwt _ = Lwt_io.write out_ch request_str in
   Lwt_io.flush out_ch;;
+
+let send_no_reply channel_pool request_str =
+  Lwt_pool.use channel_pool (
+    fun c -> send_no_reply_ c request_str
+  )
 
 (* read complete reply portion, include complete message header *)
 let read_reply (in_ch,_) =
@@ -19,8 +24,11 @@ let read_reply (in_ch,_) =
   Buffer.add_string buf str;
   Lwt.return (Buffer.contents buf)
 
-let send_with_reply channels request_str =
-  lwt _ = send_no_reply channels request_str in
-  lwt r = read_reply channels in
-  let dr = MongoReply.decode_reply r in
-  Lwt.return dr
+let send_with_reply channel_pool request_str =
+  Lwt_pool.use channel_pool (
+    fun channels ->
+      lwt _ = send_no_reply_ channels request_str in
+      lwt r = read_reply channels in
+      let dr = MongoReply.decode_reply r in
+      Lwt.return dr
+  )

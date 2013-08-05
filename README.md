@@ -1,6 +1,6 @@
 # Mongo.ml
 
-**Mongo.ml** is an OCaml driver for MongoDB. 
+**Mongo.ml** is an OCaml driver for MongoDB.
 
 It supplies a series of APIs which can be used to communicate with MongoDB, i.e., **Insert**, **Update**, **Delete** and **Query / Find**.
 
@@ -69,17 +69,4 @@ I am slowly extend this driver and **experienced OCaml/MongoDB developers are we
 
 ### Misco
 
-The current version is **0.66.1**.
-
-
-
-
-
-
-
-
-
-
-
-
-
+The current version is **0.67.0**.
