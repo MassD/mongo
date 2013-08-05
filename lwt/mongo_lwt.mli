@@ -22,14 +22,15 @@ val get_db_name: t -> string;;
 val get_collection_name: t -> string;;
 val get_ip: t -> string;;
 val get_port: t -> int;;
-val get_channels: t -> (Lwt_io.input_channel * Lwt_io.output_channel);;
-val get_output_channel: t -> Lwt_io.output_channel;;
-val get_input_channel: t -> Lwt_io.input_channel;;
+val get_channel_pool: t -> (Lwt_io.input_channel * Lwt_io.output_channel) Lwt_pool.t ;;
+(* val get_channels: t -> (Lwt_io.input_channel * Lwt_io.output_channel);; *)
+(* val get_output_channel: t -> Lwt_io.output_channel;; *)
+(* val get_input_channel: t -> Lwt_io.input_channel;; *)
 
 (** {6 Lifecycle of a Mongo} *)
 
 (** create a Mongo. {b please note that Mongo is bound to a db and a collection.} e.g. create ip port db_name collection_name. May raise Mongo_failed exception.*)
-val create: string -> int -> string -> string -> t Lwt.t;;
+val create: ?max_connection:int -> string -> int -> string -> string -> t Lwt.t;;
 
 (** create a Mongo connecting to 127.0.0.1, port 27017. e.g. create_local_default db_name collection_name. May raise Mongo_failed exception.*)
 val create_local_default: string -> string -> t Lwt.t;;
@@ -87,6 +88,9 @@ val find_q_s_one: t -> Bson.t -> Bson.t -> MongoReply.t Lwt.t;;
 (** find {b the desired number} of documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.*)
 val find_q_s_of_num: t -> Bson.t -> Bson.t -> int -> MongoReply.t Lwt.t;;
 
+(** counts the number of documents in a collection *)
+val count: ?skip:int -> ?limit:int -> ?query: Bson.t -> t -> int Lwt.t
+
 (** {6 Query / Find more via cursor} *)
 
 (** get {b the desired number} of documents via a cursor_id. e.g. get_more_of_num m cursor_id num. May raise Mongo_failed exception.*)
@@ -102,9 +106,44 @@ val kill_cursors: t -> int64 list -> unit Lwt.t;;
 
 (** {6 Index} *)
 
-(** ensure an index and force it to be unique *)
-val ensure_index: t -> string -> bool -> unit Lwt.t;;
+(** option for index. See {b http://docs.mongodb.org/manual/reference/method/db.collection.ensureIndex/#db.collection.ensureIndex } for more info *)
+type index_option =
+  | Background of bool
+  | Unique of bool
+  | Name of string
+  | DropDups of bool
+  | Sparse of bool
+  | ExpireAfterSeconds of int
+  | V of int
+  | Weight of Bson.t
+  | Default_language of string
+  | Language_override of string
 
-(*
-(** simply remove an index *)
-val remove_index: t -> string -> unit;;*)
+(** return a list of all indexes *)
+val get_indexes: t -> MongoReply.t Lwt.t ;;
+
+(** ensure an index *)
+val ensure_index: t -> Bson.t -> index_option list -> unit Lwt.t;;
+
+(** ensure an index (helper) *)
+val ensure_simple_index: ?options: index_option list -> t -> string -> unit Lwt.t;;
+
+(** ensure multi-fields index (helper) *)
+val ensure_multi_simple_index : ?options: index_option list -> t -> string list -> unit Lwt.t;;
+
+(** drop a index *)
+val drop_index: t -> string -> MongoReply.t Lwt.t;;
+
+(** drop all index of a collection *)
+val drop_all_index: t -> MongoReply.t Lwt.t;;
+
+(** {6 Instance Administration Commands } *)
+
+(** change instance collection *)
+val change_collection : t -> string -> t;;
+
+(** removes an entire collection from a database *)
+val drop_collection: t -> MongoReply.t Lwt.t;;
+
+(** drops a database, deleting the associated data files *)
+val drop_database: t -> MongoReply.t Lwt.t;;
