@@ -11,8 +11,8 @@ test: setup.data build
 
 doc: setup.data build
 	ocaml setup.ml -doc
-	cp -r _build/src/mongo.docdir doc
-	cp -r _build/lwt/mongo_lwt.docdir doc_lwt
+	cp -r _build/src/mongo.docdir/ doc
+	cp -r _build/lwt/mongo_lwt.docdir/ doc_lwt
 
 all:
 	$(SETUP) -all $(ALLFLAGS)

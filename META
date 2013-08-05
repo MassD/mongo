@@ -1,6 +1,0 @@
-name="mongo"
-description="An OCaml driver for MongoDB"
-version="0.66.1"
-requires    ="unix"
-archive(byte)="mongoUtils.cmo mongoOperation.cmo mongoHeader.cmo mongoRequest.cmo mongoReply.cmo mongoSend.cmo mongo.cmo mongoAdmin.cmo"
-archive(native)="mongoUtils.cmx mongoOperation.cmx mongoHeader.cmx mongoRequest.cmx mongoReply.cmx mongoSend.cmx mongo.cmx mongoAdmin.cmx"

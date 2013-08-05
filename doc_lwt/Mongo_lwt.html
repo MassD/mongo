@@ -117,6 +117,9 @@ find <b>the first</b> documents in the db and collection matching the bson query
 <pre><span id="VALfind_q_s_of_num"><span class="keyword">val</span> find_q_s_of_num</span> : <code class="type"><a href="Mongo_lwt.html#TYPEt">t</a> -> Bson.t -> Bson.t -> int -> MongoReply.t Lwt.t</code></pre><div class="info">
 find <b>the desired number</b> of documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.<br>
 </div>
+<pre><span id="VALcount"><span class="keyword">val</span> count</span> : <code class="type">?skip:int -> ?limit:int -> ?query:Bson.t -> <a href="Mongo_lwt.html#TYPEt">t</a> -> int Lwt.t</code></pre><div class="info">
+counts the number of documents in a collection<br>
+</div>
 <br>
 <h6 id="6_QueryFindmoreviacursor">Query / Find more via cursor</h6><br>
 <pre><span id="VALget_more_of_num"><span class="keyword">val</span> get_more_of_num</span> : <code class="type"><a href="Mongo_lwt.html#TYPEt">t</a> -> int64 -> int -> MongoReply.t Lwt.t</code></pre><div class="info">
