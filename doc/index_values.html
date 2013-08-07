@@ -35,7 +35,7 @@ change instance collection
 <td></td></tr>
 <tr><td><a href="MongoMetaOp.html#VALcomment">comment</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-Attach a comment to a query
+<code class="code"> comment s q </code> attach a comment <code class="code"> s </code> to a query <code class="code"> q </code>
 </div>
 </td></tr>
 <tr><td><a href="MongoAdmin.html#VALconnPoolStats">connPoolStats</a> [<a href="MongoAdmin.html">MongoAdmin</a>]</td>
@@ -195,7 +195,7 @@ ensure an index (helper)
 </td></tr>
 <tr><td><a href="MongoMetaOp.html#VALexplain">explain</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-Provides information on the query plan
+<code class="code"> explain q </code> provides information on the query <code class="code"> q </code> plan
 </div>
 </td></tr>
 <tr><td align="left"><br>F</td></tr>
@@ -335,7 +335,7 @@ get the starting_from field out of a MongoReply
 <tr><td align="left"><br>H</td></tr>
 <tr><td><a href="MongoMetaOp.html#VALhint">hint</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-Forces the query optimizer to use a specific index to fulfill the query
+<code class="code">hint is q </code> forces the query optimizer to use a specific index <code class="code">is</code> to fulfill the query <code class="code">q</code>
 </div>
 </td></tr>
 <tr><td><a href="MongoAdmin.html#VALhostInfo">hostInfo</a> [<a href="MongoAdmin.html">MongoAdmin</a>]</td>
@@ -360,18 +360,18 @@ kill a list of cursors, to save MongoDB resources.
 <tr><td align="left"><br>M</td></tr>
 <tr><td><a href="MongoMetaOp.html#VALmax">max</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-Specify the exclusive upper bound for a specific index in order to constrain the results of a query
+<code class="code"> max is q </code> specify the exclusive upper bound for a specific index <code class="code"> is </code> in order to constrain the results of a query <code class="code"> q </code>
 </div>
 </td></tr>
 <tr><td><a href="MongoMetaOp.html#VALmaxScan">maxScan</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-Constrains the query to only scan the specified number of documents when fulfilling the query
+<code class="code"> maxScan i q </code> constrains the query <code class="code"> q </code> to only scan the specified number of documents <code class="code"> i </code> when fulfilling the query
    Note: Contrary to what the official documentation say, it doesn't limit the number of documents a cursor will return for a query but limit the number of document the query will scan
 </div>
 </td></tr>
 <tr><td><a href="MongoMetaOp.html#VALmin">min</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-specify the inclusive lower bound for a specific index in order to constrain the results of a query
+<code class="code"> min is q </code> specify the inclusive lower bound for a specific index <code class="code"> is </code> in order to constrain the results of a query <code class="code"> q </code>
 </div>
 </td></tr>
 <tr><td align="left"><br>O</td></tr>
@@ -382,7 +382,7 @@ convert an int32 to an operation, Unknwon_op_code will be raised if the code can
 </td></tr>
 <tr><td><a href="MongoMetaOp.html#VALorderBy">orderBy</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-Sorts the results of a query
+<code class="code"> orderBy fs q </code> sorts the results of a query <code class="code"> q </code> by specifics fields <code class="code"> fs </code>
 </div>
 </td></tr>
 <tr><td align="left"><br>P</td></tr>
@@ -391,7 +391,7 @@ Sorts the results of a query
 <tr><td align="left"><br>R</td></tr>
 <tr><td><a href="MongoMetaOp.html#VALreturnKey">returnKey</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-Only return the index field or fields for the results of the query
+<code class="code">returnKey q </code> only return the index field or fields for the results of the query <code class="code"> q </code>
 </div>
 </td></tr>
 <tr><td align="left"><br>S</td></tr>
@@ -409,12 +409,12 @@ this function will send the string and wait for a response as a MongoReply
 <td></td></tr>
 <tr><td><a href="MongoMetaOp.html#VALshowDiskLoc">showDiskLoc</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-Adds a field $diskLoc to the returned documents.
+<code class="code">showDiskLoc q </code> adds a field $diskLoc to the returned documents.
 </div>
 </td></tr>
 <tr><td><a href="MongoMetaOp.html#VALsnapshot">snapshot</a> [<a href="MongoMetaOp.html">MongoMetaOp</a>]</td>
 <td><div class="info">
-Prevents the cursor from returning a document more than once because an intervening write operation results in a move of the document
+<code class="code">snapshot q</code> prevents the cursor from returning a document more than once because an intervening write operation results in a move of the document
 </div>
 </td></tr>
 <tr><td align="left"><br>T</td></tr>
