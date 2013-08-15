@@ -26,38 +26,38 @@
 &nbsp;</div>
 <h1>Module <a href="type_MongoMetaOp.html">MongoMetaOp</a></h1>
 <pre><span class="keyword">module</span> MongoMetaOp: <code class="code">sig</code> <a href="MongoMetaOp.html">..</a> <code class="code">end</code></pre><div class="info">
-<b>Meta-Query Operators. </b> see http://docs.mongodb.org/manual/reference/operator/ for mor information<br>
+<b>Meta-Query Operators. </b> see http://docs.mongodb.org/manual/reference/operator/ for more information<br>
 </div>
 <hr width="100%">
 <pre><span id="VALcomment"><span class="keyword">val</span> comment</span> : <code class="type">string -> Bson.t -> Bson.t</code></pre><div class="info">
-Attach a comment to a query<br>
+<code class="code"> comment s q </code> attach a comment <code class="code"> s </code> to a query <code class="code"> q </code><br>
 </div>
 <pre><span id="VALmaxScan"><span class="keyword">val</span> maxScan</span> : <code class="type">int -> Bson.t -> Bson.t</code></pre><div class="info">
-Constrains the query to only scan the specified number of documents when fulfilling the query
+<code class="code"> maxScan i q </code> constrains the query <code class="code"> q </code> to only scan the specified number of documents <code class="code"> i </code> when fulfilling the query
    Note: Contrary to what the official documentation say, it doesn't limit the number of documents a cursor will return for a query but limit the number of document the query will scan<br>
 </div>
 <pre><span id="VALmax"><span class="keyword">val</span> max</span> : <code class="type">Bson.t -> Bson.t -> Bson.t</code></pre><div class="info">
-Specify the exclusive upper bound for a specific index in order to constrain the results of a query<br>
+<code class="code"> max is q </code> specify the exclusive upper bound for a specific index <code class="code"> is </code> in order to constrain the results of a query <code class="code"> q </code><br>
 </div>
 <pre><span id="VALmin"><span class="keyword">val</span> min</span> : <code class="type">Bson.t -> Bson.t -> Bson.t</code></pre><div class="info">
-specify the inclusive lower bound for a specific index in order to constrain the results of a query<br>
+<code class="code"> min is q </code> specify the inclusive lower bound for a specific index <code class="code"> is </code> in order to constrain the results of a query <code class="code"> q </code><br>
 </div>
 <pre><span id="VALorderBy"><span class="keyword">val</span> orderBy</span> : <code class="type">Bson.t -> Bson.t -> Bson.t</code></pre><div class="info">
-Sorts the results of a query<br>
+<code class="code"> orderBy fs q </code> sorts the results of a query <code class="code"> q </code> by specifics fields <code class="code"> fs </code><br>
 </div>
 <pre><span id="VALexplain"><span class="keyword">val</span> explain</span> : <code class="type">Bson.t -> Bson.t</code></pre><div class="info">
-Provides information on the query plan<br>
+<code class="code"> explain q </code> provides information on the query <code class="code"> q </code> plan<br>
 </div>
 <pre><span id="VALhint"><span class="keyword">val</span> hint</span> : <code class="type">Bson.t -> Bson.t -> Bson.t</code></pre><div class="info">
-Forces the query optimizer to use a specific index to fulfill the query<br>
+<code class="code">hint is q </code> forces the query optimizer to use a specific index <code class="code">is</code> to fulfill the query <code class="code">q</code><br>
 </div>
 <pre><span id="VALreturnKey"><span class="keyword">val</span> returnKey</span> : <code class="type">Bson.t -> Bson.t</code></pre><div class="info">
-Only return the index field or fields for the results of the query<br>
+<code class="code">returnKey q </code> only return the index field or fields for the results of the query <code class="code"> q </code><br>
 </div>
 <pre><span id="VALshowDiskLoc"><span class="keyword">val</span> showDiskLoc</span> : <code class="type">Bson.t -> Bson.t</code></pre><div class="info">
-Adds a field $diskLoc to the returned documents. The $diskLoc field contains the disk location information<br>
+<code class="code">showDiskLoc q </code> adds a field $diskLoc to the returned documents. The $diskLoc field contains the disk location information<br>
 </div>
 <pre><span id="VALsnapshot"><span class="keyword">val</span> snapshot</span> : <code class="type">Bson.t -> Bson.t</code></pre><div class="info">
-Prevents the cursor from returning a document more than once because an intervening write operation results in a move of the document<br>
+<code class="code">snapshot q</code> prevents the cursor from returning a document more than once because an intervening write operation results in a move of the document<br>
 </div>
 </body></html>

@@ -62,31 +62,31 @@ val delete_all: t-> Bson.t -> unit Lwt.t;;
 (** {6 Query / Find} *)
 
 (** find {b all / the default number} of documents in the db and collection. May raise Mongo_failed exception.*)
-val find: t -> MongoReply.t Lwt.t;;
+val find: ?skip:int -> t -> MongoReply.t Lwt.t;;
 
 (** find {b the first} document in the db and collection. May raise Mongo_failed exception.*)
-val find_one: t -> MongoReply.t Lwt.t;;
+val find_one: ?skip:int -> t -> MongoReply.t Lwt.t;;
 
 (** find {b the desired number} of documents in the db and collection. May raise Mongo_failed exception.*)
-val find_of_num: t -> int -> MongoReply.t Lwt.t;;
+val find_of_num: ?skip:int -> t -> int -> MongoReply.t Lwt.t;;
 
 (** find {b all / the default number} of documents in the db and collection matching the bson query. May raise Mongo_failed exception.*)
-val find_q: t -> Bson.t -> MongoReply.t Lwt.t;;
+val find_q: ?skip:int -> t -> Bson.t -> MongoReply.t Lwt.t;;
 
 (** find {b the first} document in the db and collection matching the bson query. May raise Mongo_failed exception.*)
-val find_q_one: t -> Bson.t -> MongoReply.t Lwt.t;;
+val find_q_one: ?skip:int -> t -> Bson.t -> MongoReply.t Lwt.t;;
 
 (** find {b the desired number} of documents in the db and collection matching the bson query. May raise Mongo_failed exception.*)
-val find_q_of_num: t -> Bson.t -> int -> MongoReply.t Lwt.t;;
+val find_q_of_num: ?skip:int -> t -> Bson.t -> int -> MongoReply.t Lwt.t;;
 
 (** find {b all / the default number} of documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.*)
-val find_q_s: t -> Bson.t -> Bson.t -> MongoReply.t Lwt.t;;
+val find_q_s: ?skip:int -> t -> Bson.t -> Bson.t -> MongoReply.t Lwt.t;;
 
 (** find {b the first} documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.*)
-val find_q_s_one: t -> Bson.t -> Bson.t -> MongoReply.t Lwt.t;;
+val find_q_s_one: ?skip:int -> t -> Bson.t -> Bson.t -> MongoReply.t Lwt.t;;
 
 (** find {b the desired number} of documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.*)
-val find_q_s_of_num: t -> Bson.t -> Bson.t -> int -> MongoReply.t Lwt.t;;
+val find_q_s_of_num: ?skip:int -> t -> Bson.t -> Bson.t -> int -> MongoReply.t Lwt.t;;
 
 (** counts the number of documents in a collection *)
 val count: ?skip:int -> ?limit:int -> ?query: Bson.t -> t -> int Lwt.t

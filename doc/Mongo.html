@@ -96,31 +96,31 @@ delete the <b>all documents</b> matched in MongoDB. e.g., delete_one m s;; m is 
 </div>
 <br>
 <h6 id="6_QueryFind">Query / Find</h6><br>
-<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?skip:int -> <a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
 find <b>all / the default number</b> of documents in the db and collection. May raise Mongo_failed exception.<br>
 </div>
-<pre><span id="VALfind_one"><span class="keyword">val</span> find_one</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+<pre><span id="VALfind_one"><span class="keyword">val</span> find_one</span> : <code class="type">?skip:int -> <a href="Mongo.html#TYPEt">t</a> -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
 find <b>the first</b> document in the db and collection. May raise Mongo_failed exception.<br>
 </div>
-<pre><span id="VALfind_of_num"><span class="keyword">val</span> find_of_num</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+<pre><span id="VALfind_of_num"><span class="keyword">val</span> find_of_num</span> : <code class="type">?skip:int -> <a href="Mongo.html#TYPEt">t</a> -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
 find <b>the desired number</b> of documents in the db and collection. May raise Mongo_failed exception.<br>
 </div>
-<pre><span id="VALfind_q"><span class="keyword">val</span> find_q</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+<pre><span id="VALfind_q"><span class="keyword">val</span> find_q</span> : <code class="type">?skip:int -> <a href="Mongo.html#TYPEt">t</a> -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
 find <b>all / the default number</b> of documents in the db and collection matching the bson query. May raise Mongo_failed exception.<br>
 </div>
-<pre><span id="VALfind_q_one"><span class="keyword">val</span> find_q_one</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+<pre><span id="VALfind_q_one"><span class="keyword">val</span> find_q_one</span> : <code class="type">?skip:int -> <a href="Mongo.html#TYPEt">t</a> -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
 find <b>the first</b> document in the db and collection matching the bson query. May raise Mongo_failed exception.<br>
 </div>
-<pre><span id="VALfind_q_of_num"><span class="keyword">val</span> find_q_of_num</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+<pre><span id="VALfind_q_of_num"><span class="keyword">val</span> find_q_of_num</span> : <code class="type">?skip:int -> <a href="Mongo.html#TYPEt">t</a> -> Bson.t -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
 find <b>the desired number</b> of documents in the db and collection matching the bson query. May raise Mongo_failed exception.<br>
 </div>
-<pre><span id="VALfind_q_s"><span class="keyword">val</span> find_q_s</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+<pre><span id="VALfind_q_s"><span class="keyword">val</span> find_q_s</span> : <code class="type">?skip:int -> <a href="Mongo.html#TYPEt">t</a> -> Bson.t -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
 find <b>all / the default number</b> of documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.<br>
 </div>
-<pre><span id="VALfind_q_s_one"><span class="keyword">val</span> find_q_s_one</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+<pre><span id="VALfind_q_s_one"><span class="keyword">val</span> find_q_s_one</span> : <code class="type">?skip:int -> <a href="Mongo.html#TYPEt">t</a> -> Bson.t -> Bson.t -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
 find <b>the first</b> documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.<br>
 </div>
-<pre><span id="VALfind_q_s_of_num"><span class="keyword">val</span> find_q_s_of_num</span> : <code class="type"><a href="Mongo.html#TYPEt">t</a> -> Bson.t -> Bson.t -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
+<pre><span id="VALfind_q_s_of_num"><span class="keyword">val</span> find_q_s_of_num</span> : <code class="type">?skip:int -> <a href="Mongo.html#TYPEt">t</a> -> Bson.t -> Bson.t -> int -> <a href="MongoReply.html#TYPEt">MongoReply.t</a></code></pre><div class="info">
 find <b>the desired number</b> of documents in the db and collection matching the bson query, each document returned will only contains elements specified in the selector doc. May raise Mongo_failed exception.<br>
 </div>
 <pre><span id="VALcount"><span class="keyword">val</span> count</span> : <code class="type">?skip:int -> ?limit:int -> ?query:Bson.t -> <a href="Mongo.html#TYPEt">t</a> -> int</code></pre><div class="info">
