@@ -93,15 +93,15 @@ let delete_all m s = wrap_unix_lwt send_only (m, wrap_bson delete_in (m, 0l, s))
 
 let find_in (m, flags, skip, return, q, s) =
   MongoRequest.create_query (m.db_name, m.collection_name) (get_request_id(), flags, skip, return) (q,s);;
-let find m = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, 0l, Bson.empty, Bson.empty));;
-let find_one m = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, 1l, Bson.empty, Bson.empty));;
-let find_of_num m num = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, (Int32.of_int num), Bson.empty, Bson.empty));;
-let find_q m q = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, 0l, q, Bson.empty));;
-let find_q_one m q = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, 1l, q, Bson.empty));;
-let find_q_of_num m q num = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, (Int32.of_int num), q, Bson.empty));;
-let find_q_s m q s = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, 0l, q, s));;
-let find_q_s_one m q s = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, 1l, q, s));;
-let find_q_s_of_num m q s num = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, 0l, (Int32.of_int num), q, s));;
+let find ?(skip=0) m = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), 0l, Bson.empty, Bson.empty));;
+let find_one ?(skip=0) m = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), 1l, Bson.empty, Bson.empty));;
+let find_of_num ?(skip=0) m num = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), (Int32.of_int num), Bson.empty, Bson.empty));;
+let find_q ?(skip=0) m q = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), 0l, q, Bson.empty));;
+let find_q_one ?(skip=0) m q = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), 1l, q, Bson.empty));;
+let find_q_of_num ?(skip=0) m q num = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), (Int32.of_int num), q, Bson.empty));;
+let find_q_s ?(skip=0) m q s = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), 0l, q, s));;
+let find_q_s_one ?(skip=0) m q s = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), 1l, q, s));;
+let find_q_s_of_num ?(skip=0) m q s num = wrap_unix_lwt send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), (Int32.of_int num), q, s));;
 
 let count ?skip ?limit ?(query=Bson.empty) m =
   let c_bson = Bson.add_element "count" (Bson.create_string m.collection_name) Bson.empty in
