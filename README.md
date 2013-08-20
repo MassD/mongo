@@ -67,6 +67,12 @@ I am slowly extend this driver and **experienced OCaml/MongoDB developers are we
 
 ***
 
-### Misco
+### Misc
 
 The current version is **0.67.0**.
+
+### OPAM
+Since version 0.67.0, bson.ml and mongo.ml are package in opam.
+To install with opam:
+`opam repo add mongo-package git@github.com:MassD/mongo.git`
+Then: `opam install mongo`
