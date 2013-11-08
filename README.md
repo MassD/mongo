@@ -69,7 +69,7 @@ I am slowly extend this driver and **experienced OCaml/MongoDB developers are we
 
 ### Misc
 
-The current version is **0.67.0**.
+The current version is **0.67.1**.
 
 ### OPAM
 Since version 0.67.0, bson.ml and mongo.ml are package in opam.
