@@ -73,6 +73,5 @@ The current version is **0.67.1**.
 
 ### OPAM
 Since version 0.67.0, bson.ml and mongo.ml are package in opam.
-To install with opam:
-`opam repo add mongo-package git@github.com:MassD/mongo.git`
-Then: `opam install mongo`
+
+To install with opam: `opam install mongo`
