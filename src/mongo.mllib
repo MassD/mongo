@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: d0053386a4e7428765360e0356dd8f23)
+# DO NOT EDIT (digest: fc37678676604a8333e9e2fce0484f2e)
 Mongo
 MongoAdmin
 MongoHeader
@@ -9,4 +9,5 @@ MongoRequest
 MongoSend
 MongoUtils
 MongoMetaOp
+MongoQueryOp
 # OASIS_STOP
