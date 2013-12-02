@@ -1,6 +1,6 @@
 # OASIS_START
-# DO NOT EDIT (digest: 871196fce3886b19cd8e56454ee347f3)
-version = "0.67.0"
+# DO NOT EDIT (digest: f89d8fd3bd46a6077799b4486d71341f)
+version = "0.67.2"
 description = "OCaml driver for MongoDB"
 requires = "bson"
 archive(byte) = "mongo.cma"
@@ -9,7 +9,7 @@ archive(native) = "mongo.cmxa"
 archive(native, plugin) = "mongo.cmxs"
 exists_if = "mongo.cma"
 package "lwt" (
- version = "0.67.0"
+ version = "0.67.2"
  description = "OCaml driver for MongoDB"
  requires = "mongo bson lwt lwt.syntax"
  archive(byte) = "mongo_lwt.cma"

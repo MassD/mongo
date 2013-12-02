@@ -1,6 +1,6 @@
 OASISFormat: 0.3
 Name:        mongo.ml
-Version:     0.67.0
+Version:     0.67.2
 Synopsis:    OCaml driver for MongoDB
 Authors:     Marc Simon <marc.simon42@gmail.com> <twitter.com/marcsimon42>, Dr. Xinuo Chen <iamindcs@gmail.com>
 License:     MIT
