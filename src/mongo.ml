@@ -61,8 +61,8 @@ let insert_in (m, flags, doc_list) = MongoRequest.create_insert (m.db_name, m.co
 let insert m doc_list = wrap_unix send_only (m, wrap_bson insert_in (m, 0l, doc_list));;
 
 let update_in (m, flags, s, u) = MongoRequest.create_update (m.db_name, m.collection_name) (get_request_id(), flags) (s,u);;
-let update_one m (s,u) = wrap_unix send_only (m, wrap_bson update_in (m, 0l, s, u));;
-let update_all m (s,u) = wrap_unix send_only (m, wrap_bson update_in (m, 2l, s, u));;
+let update_one ?(upsert=false) m (s,u) = wrap_unix send_only (m, wrap_bson update_in (m, (if upsert then 1l else 0l), s, u));;
+let update_all ?(upsert=false) m (s,u) = wrap_unix send_only (m, wrap_bson update_in (m, (if upsert then 3l else 2l), s, u));;
 
 let delete_in (m, flags, s) = MongoRequest.create_delete (m.db_name, m.collection_name) (get_request_id(), flags) s;;
 let delete_one m s = wrap_unix send_only (m, wrap_bson delete_in (m, 1l, s));;
@@ -196,7 +196,6 @@ let ensure_index m key_bson options =
   in
 
   let main_bson = Bson.add_element "ns" (Bson.create_string (m.db_name ^ "." ^ m.collection_name)) main_bson in
-  (* print_endline (Bson.to_simple_json main_bson); *)
 
   let system_indexes_m = change_collection m "system.indexes" in
 

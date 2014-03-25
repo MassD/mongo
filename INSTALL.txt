@@ -1,9 +1,9 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 7966f8eb19d7b334fc4c19872c746950) *)
+(* DO NOT EDIT (digest: 28730bbf1fb1496b8748d848416a750f) *)
 This is the INSTALL file for the mongo.ml distribution.
 
 This package uses OASIS to generate its build system. See section OASIS for
-full information. 
+full information.
 
 Dependencies
 ============
@@ -25,7 +25,7 @@ Installing
 Uninstalling
 ============
 
-1. Go to the root of the package 
+1. Go to the root of the package
 2. Run 'ocaml setup.ml -uninstall'
 
 OASIS

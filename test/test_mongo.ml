@@ -46,12 +46,12 @@ let _ = print_endline "=========testing Mongo insert";;
 let empty_doc = Bson.empty;;
 let e_1 = Bson.create_int32 (1l);;
 let key_doc = Bson.add_element "key" e_1 empty_doc;;
-let _ = Mongo.insert m [key_doc];; 
+let _ = Mongo.insert m [key_doc];;
 let _ = print_endline "=========tested Mongo insert";;
 
 let e_1_1 = Bson.create_string ("");;
 let key_doc_1 = Bson.add_element "key" e_1_1 empty_doc;;
-let _ = Mongo.insert m [key_doc_1];; 
+let _ = Mongo.insert m [key_doc_1];;
 let _ = print_endline "=========tested Mongo insert";;
 
 
@@ -107,5 +107,22 @@ let _ = Mongo.kill_cursors m [c];;
 let _ = print_endline "=========tested Mongo kill_cursors";;
 
 let _ = print_endline "\n=========testing Mongo index";;
-let _ = Mongo.ensure_index m "birth" true;;
+let _ = Mongo.ensure_simple_index m "birth";;
 let _ = print_endline "=========tested Mongo index";;
+
+let _ = print_endline "\n======= testing Mongo update_one without upsert"
+let test_update ?upsert expected fail =
+  let s = Bson.add_element "test_update_upsert" (Bson.create_int32 1l) Bson.empty in
+  let u = Bson.add_element "test_update_upsert" (Bson.create_string "present") Bson.empty in
+  Mongo.update_one ?upsert m (s,u);
+  let r = Mongo.find_q m u in
+
+  if MongoReply.get_num_returned r <> expected then
+    failwith fail
+let _ = test_update 0l "update without upsert failed"
+let _ = print_endline "====== tested Mongo update_one without upsert"
+
+let _ = print_endline "\n======= testing Mongo update_one with upsert"
+let _ = test_update ~upsert:true 1l "update with upsert failed"
+let _ = Mongo.delete_one m (Bson.add_element "test_update_upsert" (Bson.create_string "present") Bson.empty)
+let _ = print_endline "====== tested Mongo update_one with upsert"

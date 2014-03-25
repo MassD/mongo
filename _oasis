@@ -44,3 +44,10 @@ Document mongo_lwt
   Install:		true
   XOCamlbuildPath:      lwt
   XOCamlbuildLibraries: mongo.lwt
+
+Executable test
+  Path:          test
+  MainIs:        test_mongo.ml
+  BuildTools:    ocamlbuild
+  BuildDepends:  unix, mongo, bson
+  CompiledObject: native

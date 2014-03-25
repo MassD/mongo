@@ -46,10 +46,10 @@ val insert: t -> Bson.t list -> unit Lwt.t;;
 (** {6 Update} *)
 
 (** update the {b first document} matched in MongoDB. e.g., update_one m (s, u);; m is the Mongo. s is the selector document, used to match the documents that need to be updated. u is the update document and any matched documents will be updated to u. May raise Mongo_failed exception.*)
-val update_one: t-> Bson.t * Bson.t -> unit Lwt.t;;
+val update_one: ?upsert:bool -> t -> Bson.t * Bson.t -> unit Lwt.t;;
 
 (** update {b all documents} matched in MongoDB. e.g., update m (s, u);; m is the Mongo. s is the selector document, used to match the documents that need to be updated. u is the update document and any matched documents will be updated to u. May raise Mongo_failed exception. *)
-val update_all: t-> Bson.t * Bson.t -> unit Lwt.t;;
+val update_all: ?upsert:bool -> t -> Bson.t * Bson.t -> unit Lwt.t;;
 
 (** {6 Delete} *)
 
