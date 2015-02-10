@@ -81,8 +81,8 @@ let find_q_s_one ?(skip=0) m q s = wrap_unix send (m, wrap_bson find_in (m, 0l, 
 let find_q_s_of_num ?(skip=0) m q s num = wrap_unix send (m, wrap_bson find_in (m, 0l, (Int32.of_int skip), (Int32.of_int num), q, s));;
 
 let count ?skip ?limit ?(query=Bson.empty) m =
-  let c_bson = Bson.add_element "count" (Bson.create_string m.collection_name) Bson.empty in
-  let c_bson = Bson.add_element "query" (Bson.create_doc_element query) c_bson in
+  let c_bson = Bson.add_element "query" (Bson.create_doc_element query) Bson.empty in
+  let c_bson = Bson.add_element "count" (Bson.create_string m.collection_name) c_bson in
   let c_bson =
     match limit with
       | Some n -> Bson.add_element "limit" (Bson.create_int32 (Int32.of_int n)) c_bson
