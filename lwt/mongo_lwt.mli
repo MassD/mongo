@@ -35,8 +35,8 @@ val create: ?max_connection:int -> string -> int -> string -> string -> t Lwt.t;
 (** create a Mongo connecting to 127.0.0.1, port 27017. e.g. create_local_default db_name collection_name. May raise Mongo_failed exception.*)
 val create_local_default: string -> string -> t Lwt.t;;
 
-(** destory a Mongo. Please use this to destory a Mongo once it finishes its purpose, in order to release system resources. May raise Mongo_failed exception.*)
-val destory: t -> unit Lwt.t;;
+(** destroy a Mongo. Please use this to destroy a Mongo once it finishes its purpose, in order to release system resources. May raise Mongo_failed exception.*)
+val destroy: t -> unit Lwt.t;;
 
 (** {6 Insert} *)
 

@@ -28,7 +28,7 @@ The usages of these two modules are similar:
 2. Depending on the request type, create the Bson document using **Bson.ml**
 3. **Mongo.insert** / **Mongo.update** / **Mongo.delete** / **Mongo.find** / **Mongo.get_more** / **Mongo.kill_cursors**
 4. Only **Mongo.find** and **Mongo.get_more** will wait for a **MongoReply**. Others will finish immediately.
-5. **Mongo.destory** the Mongo to release the resources.
+5. **Mongo.destroy** the Mongo to release the resources.
 
 ***
 

@@ -28,7 +28,7 @@ let wrap_unix f arg =
 let create ip port  = Mongo.create ip port admin_db_name admin_collection_name;;
 let create_local_default () = create "127.0.0.1" 27017;;
 
-let destory a = Mongo.destory a;;
+let destroy a = Mongo.destroy a;;
 
 let get_request_id = cur_timestamp;;
 

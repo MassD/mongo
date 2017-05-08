@@ -31,7 +31,7 @@ let wrap_unix_lwt f arg =
 let create ?max_connection ip port = Mongo_lwt.create ?max_connection ip port admin_db_name admin_collection_name;;
 let create_local_default () = create "127.0.0.1" 27017;;
 
-let destory a = Mongo_lwt.destory a;;
+let destroy a = Mongo_lwt.destroy a;;
 
 let get_request_id = cur_timestamp;;
 

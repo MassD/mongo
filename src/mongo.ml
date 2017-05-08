@@ -49,7 +49,7 @@ let create ip port db_name collection_name =
 let create_local_default db_name collection_name =
   create "127.0.0.1" 27017 db_name collection_name;;
 
-let destory m = wrap_unix Unix.close m.file_descr;;
+let destroy m = wrap_unix Unix.close m.file_descr;;
 
 
 let get_request_id = cur_timestamp;;

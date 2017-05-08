@@ -32,8 +32,8 @@ val create: ?max_connection: int -> string -> int -> t Lwt.t;;
 (** create a MongoAdmin connecting to 127.0.0.1, port 27017. May raise MongoAdmin_failed exception.*)
 val create_local_default: unit -> t Lwt.t;;
 
-(** destory a MongoAdmin. Please use this to destory a MongoAdmin once it finishes its purpose, in order to release system resources. May raise MongoAdmin_failed exception.*)
-val destory: t -> unit Lwt.t;;
+(** destroy a MongoAdmin. Please use this to destroy a MongoAdmin once it finishes its purpose, in order to release system resources. May raise MongoAdmin_failed exception.*)
+val destroy: t -> unit Lwt.t;;
 
 (** {6 Commands via a MongoAdmin, may raise MongoAdmin_failed exception.} *)
 
