@@ -55,7 +55,7 @@ let create ?(max_connection=10) ip port db_name collection_name =
 let create_local_default db_name collection_name =
   create "127.0.0.1" 27017 db_name collection_name;;
 
-let destory m =
+let destroy m =
   (* try to close all open channel *)
   let close () =
     Lwt_pool.use m.channel_pool (
