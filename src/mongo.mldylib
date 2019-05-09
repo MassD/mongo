@@ -1,0 +1,13 @@
+# OASIS_START
+# DO NOT EDIT (digest: fc37678676604a8333e9e2fce0484f2e)
+Mongo
+MongoAdmin
+MongoHeader
+MongoOperation
+MongoReply
+MongoRequest
+MongoSend
+MongoUtils
+MongoMetaOp
+MongoQueryOp
+# OASIS_STOP

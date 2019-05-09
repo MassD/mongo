@@ -1,8 +1,8 @@
 # OASIS_START
-# DO NOT EDIT (digest: f89d8fd3bd46a6077799b4486d71341f)
+# DO NOT EDIT (digest: 2cd13f0bd4433fdb9d04896cce0503b9)
 version = "0.67.2"
 description = "OCaml driver for MongoDB"
-requires = "bson"
+requires = "unix bson"
 archive(byte) = "mongo.cma"
 archive(byte, plugin) = "mongo.cma"
 archive(native) = "mongo.cmxa"
