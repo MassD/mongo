@@ -1,10 +1,15 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: d458058cd9131e4c16bc8127ab6e5953) *)
-This is the README file for the mongo.ml distribution.
+(* DO NOT EDIT (digest: 93dd8afaedb99b62b883d3e55afbe897) *)
 
-OCaml driver for MongoDB
+mongo.ml - OCaml driver for MongoDB
+===================================
 
-See the files INSTALL.txt for building and installation instructions. 
+See the file [INSTALL.txt](INSTALL.txt) for building and installation
+instructions.
 
+Copyright and license
+---------------------
+
+mongo.ml is distributed under the terms of the MIT License.
 
 (* OASIS_STOP *)

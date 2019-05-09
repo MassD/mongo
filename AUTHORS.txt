@@ -1,6 +1,9 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 155183eee19bfeeef2ba5e72ce811ead) *)
-Authors of mongo.ml
-Marc Simon <marc.simon42@gmail.com> <twitter.com/marcsimon42>
-Dr. Xinuo Chen <iamindcs@gmail.com>
+(* DO NOT EDIT (digest: f0b877c45fba44db61522de1b3fc69a1) *)
+
+Authors of mongo.ml:
+
+* Marc Simon <marc.simon42@gmail.com> <twitter.com/marcsimon42>
+* Dr. Xinuo Chen <iamindcs@gmail.com>
+
 (* OASIS_STOP *)

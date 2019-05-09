@@ -10,7 +10,7 @@ Library mongo
   Path:       src
   BuildTools: ocamlbuild
   Modules:    Mongo, MongoAdmin, MongoHeader, MongoOperation, MongoReply, MongoRequest, MongoSend, MongoUtils, MongoMetaOp, MongoQueryOp
-  BuildDepends : bson
+  BuildDepends : unix, bson
 
 Flag lwt
   Description: build the Lwt library
