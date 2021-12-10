@@ -6,7 +6,7 @@ It supplies a series of APIs which can be used to communicate with MongoDB, i.e.
 
 Here is the [Mongo.ml API docs](http://massd.github.io/mongo/doc/).
 
-### Prequisite
+### Prerequisite
 
 This driver uses **unix** and external [Bson.ml](http://massd.github.io/bson/) modules.
 
